@@ -18,6 +18,12 @@ dependencies {
 
     //jackson
     implementation("io.quarkus:quarkus-resteasy-reactive-jackson")
+
+    // Hibernate ORM specific dependencies
+    implementation("io.quarkus:quarkus-hibernate-orm-panache")
+
+    // JDBC driver dependencies
+    implementation("io.quarkus:quarkus-jdbc-mysql")
 }
 
 group 'com.somnus'
