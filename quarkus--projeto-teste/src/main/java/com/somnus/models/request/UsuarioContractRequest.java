@@ -1,29 +1,29 @@
 package com.somnus.models.request;
 
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.somnus.datasource.models.UsuarioEntity;
+import com.somnus.datasource.entity.UsuarioEntity;
 import com.somnus.exception.ParseDataNascimentoException;
+import com.somnus.components.PasswordComponents;
 
+import javax.validation.constraints.NotBlank;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-@JsonPropertyOrder({
-        "login",
-        "nome",
-        "email",
-        "cpf",
-        "dataNascimento",
-        "telefone",
-        "senha"})
-public class UsuarioContractRequest {
 
+public class UsuarioContractRequest {
+    @NotBlank(message = "campo não pode ser em branco")
     private final String login;
+    @NotBlank(message = "campo não pode ser em branco")
     private final String nome;
+    @NotBlank(message = "campo não pode ser em branco")
     private final String email;
+    @NotBlank(message = "campo não pode ser em branco")
     private final String cpf;
+    @NotBlank(message = "campo não pode ser em branco")
     private final String dataNascimento;
+    @NotBlank(message = "campo não pode ser em branco")
     private final String telefone;
+    @NotBlank(message = "campo não pode ser em branco")
     private final String senha;
 
     public UsuarioContractRequest(String nome, String email, String login, String cpf, String dataNascimento, String telefone, String senha) {
@@ -71,7 +71,7 @@ public class UsuarioContractRequest {
         usuarioEntity.setEmail(this.email);
         usuarioEntity.setTelefone(this.telefone);
         usuarioEntity.setLogin(this.login);
-        usuarioEntity.setSenha(this.senha);
+        usuarioEntity.setSenha(PasswordComponents.generateSecurePassword(this.getSenha(),PasswordComponents.getSaltvalue()));
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         Date dataConverter;
         try {

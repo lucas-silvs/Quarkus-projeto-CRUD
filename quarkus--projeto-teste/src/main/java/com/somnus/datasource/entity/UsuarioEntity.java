@@ -1,15 +1,18 @@
-package com.somnus.datasource.models;
-
+package com.somnus.datasource.entity;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @Table(name = "usuarios")
-public class UsuarioEntity  {
+public class UsuarioEntity extends PanacheEntityBase {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    private UUID id;
     private String login;
     private String nome;
     private String email;
@@ -18,12 +21,13 @@ public class UsuarioEntity  {
     private String telefone;
     private String senha;
 
-    public void setId(Long id) {
-        this.id = id;
+
+    public UUID getId() {
+        return id;
     }
 
-    public Long getId() {
-        return id;
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public String getLogin() {

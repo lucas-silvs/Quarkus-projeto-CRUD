@@ -22,6 +22,10 @@ dependencies {
     // Hibernate ORM specific dependencies
     implementation("io.quarkus:quarkus-hibernate-orm-panache")
 
+    //hibernate-validator - verifica os campos nulos do request
+    implementation("io.quarkus:quarkus-hibernate-validator")
+
+
     // JDBC driver dependencies
     implementation("io.quarkus:quarkus-jdbc-mysql")
 }
