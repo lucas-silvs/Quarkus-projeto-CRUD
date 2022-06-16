@@ -5,9 +5,9 @@ quarkus:
   datasource:
     db-kind: mysql
     username: wb-quarkus-usuarios
-    password: password
+    password: quarkusdb
     jdbc:
-      url: "jdbc:mysql://127.0.0.1:3306"
+      url: "jdbc:mysql://127.0.0.1:3303/db_quarkus"
 
   hibernate-orm:
     database:

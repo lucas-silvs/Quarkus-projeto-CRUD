@@ -10,6 +10,7 @@ import org.jboss.resteasy.reactive.RestResponse;
 import javax.inject.Inject;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.core.Response;
 
 @Path("/usuario")
 public class UsuarioControllerImpl implements UsuarioController {
@@ -26,7 +27,7 @@ public class UsuarioControllerImpl implements UsuarioController {
             return  RestResponse.ok(response);
         }catch (Exception e){
             ContractResponse response = new ContractResponse("local", "Error", "aconteceu algum erro ao cadastrar usuario. Error: " + e);
-            return RestResponse.ResponseBuilder.create(RestResponse.Status.fromStatusCode(422),response).build();
+            return RestResponse.ResponseBuilder.create(Response.Status.NOT_ACCEPTABLE, response).build();
         }
 
     }
