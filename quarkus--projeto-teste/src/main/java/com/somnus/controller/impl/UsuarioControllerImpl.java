@@ -15,9 +15,13 @@ import javax.ws.rs.core.Response;
 
 @Path("/usuario")
 public class UsuarioControllerImpl implements UsuarioController {
-    @Inject
-    private UsuarioService service;
 
+    private final UsuarioService service;
+
+    @Inject
+    public UsuarioControllerImpl(UsuarioService service) {
+        this.service = service;
+    }
 
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
@@ -25,9 +29,9 @@ public class UsuarioControllerImpl implements UsuarioController {
         try {
             service.cadastrarUsuario(userDataRequest);
             ContractResponse response = new ContractResponse("local", "sucesso", "Usuario com nome: " + userDataRequest.getNome() + " cadastrado com sucesso");
-            return RestResponse.ok(response);
+            return RestResponse.ResponseBuilder.create(Response.Status.OK, response).build();
         } catch (Exception e) {
-            ContractResponse response = new ContractResponse("local", "Error", "aconteceu algum erro ao cadastrar usuario. Error: " + e);
+            ContractResponse response = new ContractResponse("local", "error", "aconteceu algum erro ao cadastrar usuario. Error: " + e);
             return RestResponse.ResponseBuilder.create(Response.Status.NOT_ACCEPTABLE, response).build();
         }
     }
@@ -36,7 +40,6 @@ public class UsuarioControllerImpl implements UsuarioController {
     public RestResponse<UsuarioEntity> buscarUsuario(@QueryParam("identificador") String identificador) {
         UsuarioEntity usuario = service.buscarUsuario(identificador);
         return RestResponse.ResponseBuilder.create(Response.Status.OK, usuario).build();
-
     }
 
 }

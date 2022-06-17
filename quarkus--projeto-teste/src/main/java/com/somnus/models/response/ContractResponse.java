@@ -2,9 +2,9 @@ package com.somnus.models.response;
 
 public class ContractResponse {
 
-    private String origin;
-    private String situacaoRequest;
-    private String mensagemParaUsuario;
+    private final String origin;
+    private final String situacaoRequest;
+    private final String mensagemParaUsuario;
 
     public ContractResponse(String origin, String situacaoRequest, String mensagemParaUsuario) {
         this.origin = origin;
