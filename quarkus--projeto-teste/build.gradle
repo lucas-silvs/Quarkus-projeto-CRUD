@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'io.quarkus'
+    id 'groovy'
 }
 
 repositories {
@@ -28,6 +29,17 @@ dependencies {
 
     // JDBC driver dependencies
     implementation("io.quarkus:quarkus-jdbc-mysql")
+
+    //Spock Framework
+    implementation 'org.codehaus.groovy:groovy-all:3.0.11'
+    implementation 'net.bytebuddy:byte-buddy:1.12.10'
+    implementation 'org.spockframework:spock-core:2.1-groovy-3.0'
+
+
+
+
+
+
 }
 
 group 'com.somnus'
