@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'io.quarkus'
     id 'groovy'
+    id "org.openapi.generator" version "6.0.0"
 }
 
 repositories {
@@ -37,9 +38,6 @@ dependencies {
 
 
 
-
-
-
 }
 
 group 'com.somnus'
@@ -58,3 +56,17 @@ compileJava {
 compileTestJava {
     options.encoding = 'UTF-8'
 }
+
+openApiGenerate {
+    generatorName = "spring"
+    inputSpec = "$projectDir/src/main/resources/openapi.yaml".toString()
+    outputDir = "$buildDir/generated".toString()
+    apiPackage = "com.somnus.api"
+    invokerPackage = "com.somnus.invoker"
+    modelPackage = "com.somnus.model"
+    configOptions = [
+            dateLibrary: "legacy"
+    ]
+}
+
+compileJava.dependsOn tasks.openApiGenerate
