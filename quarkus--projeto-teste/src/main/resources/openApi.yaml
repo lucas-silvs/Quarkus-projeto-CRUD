@@ -1,0 +1,158 @@
+openapi: 3.0.2
+info:
+  title: crud-quarkus
+  version: 1.0.0
+paths:
+  /usuario:
+    description: >-
+      endpoint destinado a realização de operações com o usuario, como cadastro, consulta, atualizações
+      e remoções
+    servers:
+      -
+        url: '{ambiente}:5000'
+        description: ''
+        variables:
+          ambiente:
+            default: localhost
+            description: apontar para aplicação local
+    get:
+      tags:
+        - UsuarioController
+      parameters:
+        -
+          name: identificador
+          description: 'identificador do usuario, sendo o cpf'
+          schema:
+            type: string
+          in: query
+          required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: usuario encontrado
+        '404':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: usuario não encontrado
+      operationId: buscarUsuario
+      summary: buscar usuario
+      description: 'ao informar um identificador, é realizado a busca do usuario na base de dados'
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UsuarioContractRequest'
+            examples:
+              exemplo cadastro de usuario:
+                value:
+                  login: loginTeste
+                  nome: Nome completo
+                  email: teste@email.com
+                  cpf: '12345678901'
+                  dataNascimento: 2018/01/17
+                  telefone: some text
+                  senha: some text
+        required: true
+      tags:
+        - UsuarioController
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: string
+              examples:
+                exemplo usuario cadastrado com sucesso:
+                  value:
+                    origin: local
+                    situacaoRequest: sucesso
+                    mensagemParaUsuario: Usuario com nome NomeExemplo cadastrado com sucesso
+          description: Usuario cadastrado com sucesso
+        '406':
+          content:
+            application/json:
+              schema:
+                type: string
+              examples:
+                exemplo cadastro de usuario com erro:
+                  value:
+                    origin: local
+                    situacaoRequest: error
+                    mensagemParaUsuario: 'aconteceu algum erro ao cadastrar usuario. Error: Excessão'
+          description: aconteceu algum problema ao cadastrar usuario
+      operationId: cadastrarUsuario
+      summary: cadastrar usuario
+      description: 'ao informar os dados do usuario, o usuario e cadastrado na base de dados'
+components:
+  schemas:
+    UsuarioContractRequest:
+      description: requisição para cadastro de usuario
+      required:
+        - login
+        - nome
+        - email
+        - cpf
+        - dataNascimento
+        - telefone
+        - senha
+      type: object
+      properties:
+        login:
+          description: login do usuario
+          type: string
+        nome:
+          description: nome completo do usuario
+          type: string
+        email:
+          description: email do usuario
+          type: string
+        cpf:
+          description: documento cpf do usuario
+          type: string
+        dataNascimento:
+          description: >-
+            data de nascimento do usuario, informar os campos com o seguinte formato:
+            dd/mm/YYYY
+          pattern: DD/MM/YYYY
+          type: string
+        telefone:
+          description: 'numero de telefone do usuario, informando somente os numeros'
+          type: string
+        senha:
+          description: senha para o usuario realizar o login
+          type: string
+      example:
+        login: loginTeste
+        nome: Nome completo
+        email: teste@email.com
+        cpf: '12345678901'
+        dataNascimento: 2018/01/17
+        telefone: '123456789'
+        senha: '12345'
+    ContractResponse:
+      description: Contrato para as respostas das api's
+      required:
+        - origin
+        - situacaoRequest
+        - mensagemParaUsuario
+      type: object
+      properties:
+        origin:
+          description: origin do ambiente onde foi feito a requisição
+          type: string
+        situacaoRequest:
+          description: campo onde informa se a requisição foi feita com sucesso ou erro
+          type: string
+        mensagemParaUsuario:
+          description: mensagem para ser apresentada no response
+          type: string
+tags:
+  -
+    name: UsuarioController
+    description: ''

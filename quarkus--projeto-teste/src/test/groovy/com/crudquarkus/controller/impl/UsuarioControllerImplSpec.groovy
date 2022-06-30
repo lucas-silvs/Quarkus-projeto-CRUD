@@ -2,7 +2,7 @@ package com.crudquarkus.controller.impl
 
 
 import com.crudquarkus.exception.BussinessException
-import com.crudquarkus.models.request.UsuarioContractRequest
+import com.crudquarkus.model.UsuarioContractRequest
 import com.crudquarkus.service.impl.UsuarioServiceImpl
 import io.quarkus.test.junit.QuarkusTest
 import spock.lang.Specification

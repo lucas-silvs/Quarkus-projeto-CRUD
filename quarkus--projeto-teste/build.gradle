@@ -36,6 +36,13 @@ dependencies {
     implementation 'net.bytebuddy:byte-buddy:1.12.10'
     implementation 'org.spockframework:spock-core:2.1-groovy-3.0'
 
+    //dependencias openApiGenerator
+    implementation 'org.openapitools:jackson-databind-nullable:0.2.3'
+    implementation 'io.swagger.core.v3:swagger-annotations:2.2.1'
+    implementation 'io.swagger:swagger-annotations:1.6.6'
+
+
+
 
 
 }
@@ -57,16 +64,35 @@ compileTestJava {
     options.encoding = 'UTF-8'
 }
 
-openApiGenerate {
-    generatorName = "spring"
-    inputSpec = "$projectDir/src/main/resources/openapi.yaml".toString()
+task generateModels(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask){
+    generatorName = "jaxrs-spec"
+    inputSpec = "$projectDir/src/main/resources/openApi.yaml".toString()
     outputDir = "$buildDir/generated".toString()
-    apiPackage = "com.somnus.api"
-    invokerPackage = "com.somnus.invoker"
-    modelPackage = "com.somnus.model"
+    apiPackage = "com.crudquarkus.api"
+    modelPackage = "com.crudquarkus.model"
+
+    globalProperties = [
+            apis: "",
+            models: ""
+    ]
+
     configOptions = [
-            dateLibrary: "legacy"
+            basePackage: "com.crudquarkus",
+            dateLibrary: "legacy",
+            interfaceOnly: "true",
+            useTags: "true",
+            hideGenerationTimeStamp: "true",
+            library: "quarkus",
+            sourceFolder: "src/main/java"
     ]
 }
 
-compileJava.dependsOn tasks.openApiGenerate
+sourceSets {
+    main{
+        java{
+            srcDir(files("${generateModels.outputDir.get()}/src/main/java"))
+        }
+    }
+}
+
+compileJava.dependsOn tasks.generateModels
