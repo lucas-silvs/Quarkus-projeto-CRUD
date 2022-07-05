@@ -3,7 +3,7 @@ package com.crudquarkus.service.impl
 import com.crudquarkus.datasource.entity.UsuarioEntity
 import com.crudquarkus.exception.BussinessException
 import com.crudquarkus.gateway.impl.UsuarioGatewayImpl
-import com.crudquarkus.model.UsuarioContractRequest
+import com.crudquarkus.models.request.UsuarioContractRequest
 import spock.lang.Specification
 
 import javax.validation.Validation

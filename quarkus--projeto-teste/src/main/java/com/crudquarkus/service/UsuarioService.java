@@ -1,8 +1,7 @@
 package com.crudquarkus.service;
 
 import com.crudquarkus.datasource.entity.UsuarioEntity;
-import com.crudquarkus.model.UsuarioContractRequest;
-
+import com.crudquarkus.models.request.UsuarioContractRequest;
 
 public interface UsuarioService {
 
