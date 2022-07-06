@@ -64,23 +64,4 @@ public class UsuarioContractRequest {
         return senha;
     }
 
-    public UsuarioEntity toUsuarioEntity() {
-        UsuarioEntity usuarioEntity = new UsuarioEntity();
-        usuarioEntity.setNome(this.nome);
-        usuarioEntity.setCpf(this.cpf);
-        usuarioEntity.setEmail(this.email);
-        usuarioEntity.setTelefone(this.telefone);
-        usuarioEntity.setLogin(this.login);
-        usuarioEntity.setSenha(PasswordComponents.generateSecurePassword(this.getSenha(),PasswordComponents.getSaltvalue()));
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        Date dataConverter;
-        try {
-            dataConverter = formato.parse(this.dataNascimento);
-        } catch (ParseException e) {
-            throw new ParseDataNascimentoException("Não foi possivel converter a data, erro: " + e);
-        }
-        usuarioEntity.setDataNascimento(dataConverter);
-
-        return usuarioEntity;
-    }
 }

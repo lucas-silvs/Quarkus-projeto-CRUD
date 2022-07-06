@@ -2,6 +2,7 @@ package com.crudquarkus.service;
 
 import com.crudquarkus.datasource.entity.UsuarioEntity;
 import com.crudquarkus.models.request.UsuarioContractRequest;
+import com.crudquarkus.models.request.UsuarioCredencialRequest;
 
 public interface UsuarioService {
 
@@ -10,4 +11,5 @@ public interface UsuarioService {
  UsuarioEntity buscarUsuario(String identificador);
 
 
+    void validarCredenciais(UsuarioCredencialRequest credencialRequest);
 }

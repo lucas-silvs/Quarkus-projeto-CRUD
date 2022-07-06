@@ -1,8 +1,9 @@
 package com.crudquarkus.controller.impl
 
-
+import com.crudquarkus.datasource.entity.UsuarioEntity
 import com.crudquarkus.exception.BussinessException
 import com.crudquarkus.models.request.UsuarioContractRequest
+import com.crudquarkus.service.converter.DateConverter
 import com.crudquarkus.service.impl.UsuarioServiceImpl
 import io.quarkus.test.junit.QuarkusTest
 import spock.lang.Specification
@@ -55,7 +56,7 @@ class UsuarioControllerImplSpec extends Specification {
         response.getEntity().getCpf() == identificador
 
         and:
-        usuarioService.buscarUsuario(identificador) >> criarUsuarioEntity()
+        usuarioService.buscarUsuario(identificador) >> criarUsuarioEntity(criarUsuarioContractRequest())
     }
 
     def "BuscarUsuario - ao informar o cpf do usuario para busca - caso o usuario nao exista na base - e retornado o http status 200 e os dados do usuario"() {
@@ -71,7 +72,7 @@ class UsuarioControllerImplSpec extends Specification {
         response.getEntity().getCpf() == identificador
 
         and:
-        usuarioService.buscarUsuario(identificador) >> criarUsuarioEntity()
+        usuarioService.buscarUsuario(identificador) >> criarUsuarioEntity(criarUsuarioContractRequest())
     }
 
     def criarUsuarioContractRequest(){
@@ -94,8 +95,16 @@ class UsuarioControllerImplSpec extends Specification {
         return requestCadastrarUsuario
     }
 
-    def criarUsuarioEntity(){
-        return  criarUsuarioContractRequest().toUsuarioEntity()
+    def criarUsuarioEntity(UsuarioContractRequest request){
+        def usuarioEntity = new UsuarioEntity();
+        usuarioEntity.setNome(request.getNome())
+        usuarioEntity.setEmail(request.getEmail())
+        usuarioEntity.setLogin(request.getLogin())
+        usuarioEntity.setCpf(request.getCpf())
+        usuarioEntity.setDataNascimento(DateConverter.StringToDate(request.getDataNascimento()))
+        usuarioEntity.setTelefone(request.getTelefone())
+
+        return usuarioEntity
     }
 
 }

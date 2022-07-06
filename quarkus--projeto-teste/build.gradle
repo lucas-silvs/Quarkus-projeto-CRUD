@@ -28,6 +28,8 @@ dependencies {
     // JDBC driver dependencies
     implementation("io.quarkus:quarkus-jdbc-mysql")
 
+    implementation("io.quarkus:quarkus-resteasy-reactive-jackson")
+
     //Spock Framework
     implementation 'org.codehaus.groovy:groovy-all:3.0.11'
     implementation 'net.bytebuddy:byte-buddy:1.12.10'
