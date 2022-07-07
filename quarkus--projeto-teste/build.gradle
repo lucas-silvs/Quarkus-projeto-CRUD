@@ -24,6 +24,8 @@ dependencies {
     //hibernate-validator - verifica os campos nulos do request
     implementation("io.quarkus:quarkus-hibernate-validator")
 
+    //Spring Security
+    implementation 'org.springframework.security:spring-security-crypto:5.7.2'
 
     // JDBC driver dependencies
     implementation("io.quarkus:quarkus-jdbc-mysql")

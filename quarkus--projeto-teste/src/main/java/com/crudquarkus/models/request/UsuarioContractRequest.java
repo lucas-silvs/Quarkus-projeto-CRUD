@@ -1,14 +1,6 @@
 package com.crudquarkus.models.request;
 
-import com.crudquarkus.components.PasswordComponents;
-import com.crudquarkus.datasource.entity.UsuarioEntity;
-import com.crudquarkus.exception.ParseDataNascimentoException;
-
 import javax.validation.constraints.NotBlank;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 
 public class UsuarioContractRequest {
     @NotBlank(message = "campo não pode ser em branco")

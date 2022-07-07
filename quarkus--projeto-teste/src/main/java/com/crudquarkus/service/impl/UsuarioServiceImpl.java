@@ -3,8 +3,6 @@ package com.crudquarkus.service.impl;
 import com.crudquarkus.components.PasswordComponents;
 import com.crudquarkus.datasource.entity.UsuarioEntity;
 import com.crudquarkus.exception.BussinessException;
-import com.crudquarkus.exception.InternalException;
-import com.crudquarkus.exception.ParseDataNascimentoException;
 import com.crudquarkus.gateway.UsuarioGateway;
 import com.crudquarkus.models.request.UsuarioContractRequest;
 import com.crudquarkus.models.request.UsuarioCredencialRequest;
@@ -15,10 +13,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Optional;
 import java.util.Set;
 
 @ApplicationScoped
@@ -55,7 +50,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuarioEntity.setEmail(request.getEmail());
         usuarioEntity.setTelefone(request.getTelefone());
         usuarioEntity.setLogin(request.getLogin());
-        usuarioEntity.setSenha(PasswordComponents.generateSecurePassword(request.getSenha(),PasswordComponents.getSaltvalue()));
+        usuarioEntity.setSenha(PasswordComponents.criptografarSenha(request.getSenha()));
         Date dataConvertida = DateConverter.StringToDate(request.getDataNascimento());
         usuarioEntity.setDataNascimento(dataConvertida);
 
@@ -71,7 +66,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     public void validarCredenciais(UsuarioCredencialRequest credencialRequest) {
         validateFieldCredencialRequest(credencialRequest);
         UsuarioEntity usuarioEntity = usuarioGateway.buscarUsuario(credencialRequest.getCpf());
-        boolean senhavalida = PasswordComponents.verifyUserPassword(credencialRequest.getSenha(), usuarioEntity.getSenha(), PasswordComponents.getSaltvalue());
+        boolean senhavalida = PasswordComponents.isSenhaCorreta(usuarioEntity.getSenha(), credencialRequest.getSenha());
         if(!senhavalida){
             throw new BussinessException("Senha Incorreta");
         }
