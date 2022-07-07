@@ -6,6 +6,7 @@ import com.crudquarkus.exception.BussinessException;
 import com.crudquarkus.gateway.UsuarioGateway;
 import com.crudquarkus.models.request.UsuarioContractRequest;
 import com.crudquarkus.models.request.UsuarioCredencialRequest;
+import com.crudquarkus.models.response.UsuarioContractResponse;
 import com.crudquarkus.service.UsuarioService;
 import com.crudquarkus.service.converter.DateConverter;
 
@@ -58,8 +59,9 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public UsuarioEntity buscarUsuario(String identificador) {
-        return usuarioGateway.buscarUsuario(identificador);
+    public UsuarioContractResponse buscarUsuario(String identificador) {
+        UsuarioEntity usuarioEntity = usuarioGateway.buscarUsuario(identificador);
+        return new UsuarioContractResponse(usuarioEntity);
     }
 
     @Override

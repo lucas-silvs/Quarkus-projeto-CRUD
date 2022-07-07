@@ -1,11 +1,10 @@
 package com.crudquarkus.controller.impl;
 
 import com.crudquarkus.controller.UsuarioController;
-import com.crudquarkus.datasource.entity.UsuarioEntity;
-import com.crudquarkus.exception.BussinessException;
 import com.crudquarkus.models.request.UsuarioContractRequest;
 import com.crudquarkus.models.request.UsuarioCredencialRequest;
 import com.crudquarkus.models.response.ContractResponse;
+import com.crudquarkus.models.response.UsuarioContractResponse;
 import com.crudquarkus.service.UsuarioService;
 import org.jboss.resteasy.reactive.RestResponse;
 
@@ -13,7 +12,6 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.Optional;
 
 @Path("/usuario")
 public class UsuarioControllerImpl implements UsuarioController {
@@ -39,8 +37,8 @@ public class UsuarioControllerImpl implements UsuarioController {
     }
 
     @GET
-    public RestResponse<UsuarioEntity> buscarUsuario(@QueryParam("identificador") String identificador) {
-        UsuarioEntity usuario = service.buscarUsuario(identificador);
+    public RestResponse<UsuarioContractResponse> buscarUsuario(@QueryParam("identificador") String identificador) {
+        UsuarioContractResponse usuario = service.buscarUsuario(identificador);
         return RestResponse.ResponseBuilder.create(Response.Status.OK, usuario).build();
     }
 
