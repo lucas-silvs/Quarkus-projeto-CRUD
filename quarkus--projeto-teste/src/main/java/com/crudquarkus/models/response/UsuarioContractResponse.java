@@ -3,11 +3,10 @@ package com.crudquarkus.models.response;
 import com.crudquarkus.datasource.entity.UsuarioEntity;
 
 import java.util.Date;
-import java.util.UUID;
 
 public class UsuarioContractResponse {
 
-    private UUID id;
+    private String id;
     private String login;
     private String nome;
     private String email;
@@ -21,15 +20,18 @@ public class UsuarioContractResponse {
         this.setCpf(entity.getCpf());
         this.setDataNascimento(entity.getDataNascimento());
         this.setLogin(entity.getLogin());
-        this.setId(entity.getId());
+        this.setId(String.valueOf(entity.getId()));
         this.setTelefone(entity.getTelefone());
     }
 
-    public UUID getId() {
+    public UsuarioContractResponse() {
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 

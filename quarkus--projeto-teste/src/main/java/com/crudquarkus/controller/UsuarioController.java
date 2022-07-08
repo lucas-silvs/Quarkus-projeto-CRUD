@@ -15,5 +15,7 @@ public interface UsuarioController {
 
     RestResponse<Object> validarCredenciais (UsuarioCredencialRequest credencialRequest);
 
+    RestResponse<Object> excluirUsuario (String identificador);
+
 
 }

@@ -47,9 +47,15 @@ public class UsuarioControllerImpl implements UsuarioController {
     @Produces(MediaType.APPLICATION_JSON)
     public RestResponse<Object> validarCredenciais(UsuarioCredencialRequest credencialRequest) {
         service.validarCredenciais(credencialRequest);
-        return RestResponse.ResponseBuilder.create(RestResponse.Status.NO_CONTENT).build();
-
-
+        return RestResponse.noContent();
     }
+
+    @Path("/excluir-usuario")
+    @DELETE
+    public RestResponse<Object> excluirUsuario(@QueryParam("identificador") String identificador) {
+        service.excluirUsuario(identificador);
+        return RestResponse.noContent();
+    }
+
 
 }

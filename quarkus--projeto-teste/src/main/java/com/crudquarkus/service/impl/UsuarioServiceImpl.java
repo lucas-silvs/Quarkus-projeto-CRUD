@@ -74,6 +74,10 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
     }
 
+    public void excluirUsuario(String identificador) {
+        usuarioGateway.excluirUsuario(identificador);
+    }
+
     private void validateFieldCredencialRequest(UsuarioCredencialRequest credencialRequest) {
         Set<ConstraintViolation<UsuarioCredencialRequest>> violations = validator.validate(credencialRequest);
         if(!violations.isEmpty()) {

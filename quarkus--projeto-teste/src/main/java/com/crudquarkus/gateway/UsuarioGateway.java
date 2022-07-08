@@ -8,4 +8,5 @@ public interface UsuarioGateway {
 
     UsuarioEntity buscarUsuario(String cpf);
 
+    void excluirUsuario(String identificador);
 }

@@ -7,6 +7,7 @@ import com.crudquarkus.gateway.UsuarioGateway;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import javax.ws.rs.NotFoundException;
 import java.util.Optional;
 
@@ -41,5 +42,11 @@ public class UsuarioGatewayImpl implements UsuarioGateway {
         } catch (NotFoundException e) {
             throw new GatewayException("Usuario não encontrado");
         }
+    }
+
+    @Transactional
+    public void excluirUsuario(String identificador) {
+        UsuarioEntity entity = buscarUsuario(identificador);
+        usuarioRepository.delete(entity);
     }
 }

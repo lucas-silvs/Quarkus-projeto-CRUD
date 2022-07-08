@@ -19,6 +19,7 @@ public class UsuarioRepository implements PanacheRepository<UsuarioEntity> {
         em.persist(novoUsuario);
     }
 
+
     public UsuarioEntity buscarPeloCpfCnpj(String cpf){
         return find("cpf", cpf).firstResult();
     }

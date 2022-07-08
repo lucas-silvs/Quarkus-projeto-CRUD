@@ -13,12 +13,11 @@ services:
       MYSQL_ROOT_PASSWORD: admin
     
     volumes:
-      - "./scripts/schema.sql:/docker-entrypoint-initdb.d/1.sql"
+      - "./script/schema.sql:/docker-entrypoint-initdb.d/1.sql"
     ports:
       - 3303:3306
-
   adminer:
     image: adminer
     restart: always
     ports:
-      - 8080:8080 
+      - 8080:8080

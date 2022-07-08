@@ -10,6 +10,7 @@ public interface UsuarioService {
 
  UsuarioContractResponse buscarUsuario(String identificador);
 
+ void validarCredenciais(UsuarioCredencialRequest credencialRequest);
 
-    void validarCredenciais(UsuarioCredencialRequest credencialRequest);
+ void excluirUsuario(String identificador);
 }
