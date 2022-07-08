@@ -9,6 +9,7 @@ import com.crudquarkus.models.request.UsuarioCredencialRequest;
 import com.crudquarkus.models.response.UsuarioContractResponse;
 import com.crudquarkus.service.UsuarioService;
 import com.crudquarkus.service.converter.DateConverter;
+import com.crudquarkus.service.validator.CpfValidator;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -31,6 +32,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     public void cadastrarUsuario(UsuarioContractRequest usuarioContractRequest) {
         validateFieldUsuarioContractRequest(usuarioContractRequest);
+
         UsuarioEntity entity = toUsuarioEntity(usuarioContractRequest);
         usuarioGateway.cadastrarUsuario(entity);
     }
@@ -41,6 +43,7 @@ public class UsuarioServiceImpl implements UsuarioService {
             String message = ((ConstraintViolation) violations.toArray()[0]).getMessageTemplate();
             throw new BussinessException(message);
         }
+        CpfValidator.isCPF(usuarioContractRequest.getCpf());
 
     }
 
@@ -60,6 +63,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public UsuarioContractResponse buscarUsuario(String identificador) {
+        if(!CpfValidator.isCPF(identificador)){
+            throw new BussinessException("Identificador Cpf Invalido");
+        }
         UsuarioEntity usuarioEntity = usuarioGateway.buscarUsuario(identificador);
         return new UsuarioContractResponse(usuarioEntity);
     }
@@ -67,6 +73,9 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public void validarCredenciais(UsuarioCredencialRequest credencialRequest) {
         validateFieldCredencialRequest(credencialRequest);
+        if(!CpfValidator.isCPF(credencialRequest.getCpf())){
+            throw new BussinessException("Identificador Cpf Invalido");
+        }
         UsuarioEntity usuarioEntity = usuarioGateway.buscarUsuario(credencialRequest.getCpf());
         boolean senhavalida = PasswordComponents.isSenhaCorreta(usuarioEntity.getSenha(), credencialRequest.getSenha());
         if(!senhavalida){
