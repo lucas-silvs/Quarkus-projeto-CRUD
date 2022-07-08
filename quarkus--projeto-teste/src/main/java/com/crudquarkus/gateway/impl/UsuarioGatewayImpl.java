@@ -9,12 +9,14 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.NotFoundException;
+import javax.ws.rs.core.Response.Status;
 import java.util.Optional;
 
 @ApplicationScoped
 public class UsuarioGatewayImpl implements UsuarioGateway {
 
 
+    public static final String GATEWAY = "GATEWAY";
     UsuarioRepository usuarioRepository;
 
     @Inject
@@ -27,7 +29,7 @@ public class UsuarioGatewayImpl implements UsuarioGateway {
             usuarioRepository.cadastrarUsuario(usuarioEntity);
         }
         else {
-            throw new GatewayException("Usuario existente na base");
+            throw new GatewayException("Usuario existente na base", GATEWAY, Status.CONFLICT, "UsuarioGatewayImpl.cadastrarUsuario()");
         }
     }
     private boolean usuarioUnicoNaBase(String cpf) {
@@ -40,7 +42,7 @@ public class UsuarioGatewayImpl implements UsuarioGateway {
             return Optional.ofNullable(usuarioRepository.buscarPeloCpfCnpj(identificador))
                     .orElseThrow(NotFoundException::new);
         } catch (NotFoundException e) {
-            throw new GatewayException("Usuario não encontrado");
+            throw new GatewayException("Usuario não encontrado", GATEWAY, Status.NOT_FOUND, "UsuarioGatewayImpl.buscarUsuario()");
         }
     }
 

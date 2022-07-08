@@ -1,19 +1,10 @@
 package com.crudquarkus.exception;
 
-public class InternalException extends RuntimeException{
+import javax.ws.rs.core.Response.Status;
 
-    private final String localizedMessage;
+public class InternalException extends LayerException{
 
-    public InternalException(String message) {
-        super(message);
-        this.localizedMessage = null;
+    public InternalException(String message, String layer, Status statusCode, String localizedMessage) {
+        super(message, layer, statusCode, localizedMessage);
     }
-
-    public InternalException(String message, String localizedMessage) {
-        super(message);
-        this.localizedMessage = localizedMessage;
-
-    }
-
-
 }

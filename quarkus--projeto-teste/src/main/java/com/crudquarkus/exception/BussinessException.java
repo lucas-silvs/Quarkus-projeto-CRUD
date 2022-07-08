@@ -1,8 +1,10 @@
 package com.crudquarkus.exception;
 
-public class BussinessException extends RuntimeException {
+import javax.ws.rs.core.Response.Status;
 
-    public BussinessException(String message) {
-        super(message);
+public class BussinessException extends LayerException {
+
+    public BussinessException(String message, String layer, Status statusCode, String localizedMessage) {
+        super(message, layer, statusCode, localizedMessage);
     }
 }

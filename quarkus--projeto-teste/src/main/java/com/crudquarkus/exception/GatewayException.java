@@ -1,8 +1,11 @@
 package com.crudquarkus.exception;
 
-public class GatewayException extends RuntimeException{
+import javax.ws.rs.core.Response.Status;
 
-    public GatewayException(String message) {
-        super(message);
+public class GatewayException extends LayerException{
+
+    public GatewayException(String message, String layer, Status statusCode, String localizedMessage) {
+        super(message, layer, statusCode, localizedMessage);
     }
+
 }
