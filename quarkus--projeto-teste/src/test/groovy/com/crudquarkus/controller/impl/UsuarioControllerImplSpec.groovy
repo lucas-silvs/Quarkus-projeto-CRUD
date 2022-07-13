@@ -1,13 +1,15 @@
 package com.crudquarkus.controller.impl
 
 
-import com.crudquarkus.exception.BussinessException
+import com.crudquarkus.exception.LayerException
 import com.crudquarkus.models.request.UsuarioContractRequest
 import com.crudquarkus.models.response.UsuarioContractResponse
 import com.crudquarkus.service.converter.DateConverter
 import com.crudquarkus.service.impl.UsuarioServiceImpl
 import io.quarkus.test.junit.QuarkusTest
 import spock.lang.Specification
+
+import javax.ws.rs.core.Response
 
 @QuarkusTest
 class UsuarioControllerImplSpec extends Specification {
@@ -36,12 +38,12 @@ class UsuarioControllerImplSpec extends Specification {
         def response = usuarioController.cadastrarUsuario(requestCadastrarUsuario)
 
         then:
-        response.getStatus() == 406
+        response.getStatus() == 422
         response.getEntity().getSituacaoRequest() == "error"
         response.getEntity().getMensagemParaUsuario().contains("erro na camada de Business")
 
         and:
-        usuarioService.cadastrarUsuario(requestCadastrarUsuario) >> {throw new BussinessException("erro na camada de Business")}
+        usuarioService.cadastrarUsuario(requestCadastrarUsuario) >> {throw new LayerException("Excessao", "BUSINESS", Response.Status.INTERNAL_SERVER_ERROR, "")}
     }
 
     def "BuscarUsuario - ao informar o cpf do usuario para busca - caso o usuario exista na base - e retornado o http status 200 e os dados do usuario"() {
@@ -97,7 +99,7 @@ class UsuarioControllerImplSpec extends Specification {
     }
 
     def criarUsuarioContractResponse(UsuarioContractRequest request){
-        def usuarioContractResponse = new UsuarioContractResponse();
+        def usuarioContractResponse = new UsuarioContractResponse()
         usuarioContractResponse.setNome(request.getNome())
         usuarioContractResponse.setEmail(request.getEmail())
         usuarioContractResponse.setLogin(request.getLogin())

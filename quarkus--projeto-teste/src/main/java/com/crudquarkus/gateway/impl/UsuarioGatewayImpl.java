@@ -2,7 +2,7 @@ package com.crudquarkus.gateway.impl;
 
 import com.crudquarkus.datasource.entity.UsuarioEntity;
 import com.crudquarkus.datasource.repository.UsuarioRepository;
-import com.crudquarkus.exception.GatewayException;
+import com.crudquarkus.exception.LayerException;
 import com.crudquarkus.gateway.UsuarioGateway;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -29,7 +29,7 @@ public class UsuarioGatewayImpl implements UsuarioGateway {
             usuarioRepository.cadastrarUsuario(usuarioEntity);
         }
         else {
-            throw new GatewayException("Usuario existente na base", GATEWAY, Status.CONFLICT, "UsuarioGatewayImpl.cadastrarUsuario()");
+            throw new LayerException("Usuario existente na base", GATEWAY, Status.CONFLICT, "UsuarioGatewayImpl.cadastrarUsuario()");
         }
     }
     private boolean usuarioUnicoNaBase(String cpf) {
@@ -42,7 +42,7 @@ public class UsuarioGatewayImpl implements UsuarioGateway {
             return Optional.ofNullable(usuarioRepository.buscarPeloCpfCnpj(identificador))
                     .orElseThrow(NotFoundException::new);
         } catch (NotFoundException e) {
-            throw new GatewayException("Usuario não encontrado", GATEWAY, Status.NOT_FOUND, "UsuarioGatewayImpl.buscarUsuario()");
+            throw new LayerException("Usuario não encontrado", GATEWAY, Status.NOT_FOUND, "UsuarioGatewayImpl.buscarUsuario()");
         }
     }
 

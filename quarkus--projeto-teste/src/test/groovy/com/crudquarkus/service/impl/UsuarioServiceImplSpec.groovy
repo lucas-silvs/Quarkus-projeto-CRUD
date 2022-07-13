@@ -1,7 +1,7 @@
 package com.crudquarkus.service.impl
 
 import com.crudquarkus.datasource.entity.UsuarioEntity
-import com.crudquarkus.exception.BussinessException
+import com.crudquarkus.exception.LayerException
 import com.crudquarkus.gateway.impl.UsuarioGatewayImpl
 import com.crudquarkus.models.request.UsuarioContractRequest
 import spock.lang.Specification
@@ -34,7 +34,7 @@ class UsuarioServiceImplSpec extends Specification {
         usuarioService.cadastrarUsuario(usuarioContractRequest)
 
         then:
-        thrown(BussinessException)
+        thrown(LayerException)
 
     }
 
@@ -81,7 +81,7 @@ class UsuarioServiceImplSpec extends Specification {
     def "BuscarUsuario - ao buscar usuario - se o usuario for encontrado - deve-se retornar o usuario com seus dados"() {
 
         given:
-        def identificador = "123234456"
+        def identificador = "84568668735"
         def usuarioEntity = criarUsuarioEntity(identificador)
         when:
         def response = usuarioService.buscarUsuario(identificador)

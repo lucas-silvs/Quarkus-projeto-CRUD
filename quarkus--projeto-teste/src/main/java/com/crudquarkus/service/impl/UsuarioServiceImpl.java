@@ -2,7 +2,7 @@ package com.crudquarkus.service.impl;
 
 import com.crudquarkus.components.PasswordComponents;
 import com.crudquarkus.datasource.entity.UsuarioEntity;
-import com.crudquarkus.exception.BussinessException;
+import com.crudquarkus.exception.LayerException;
 import com.crudquarkus.gateway.UsuarioGateway;
 import com.crudquarkus.models.request.UsuarioContractRequest;
 import com.crudquarkus.models.request.UsuarioCredencialRequest;
@@ -43,7 +43,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         Set<ConstraintViolation<UsuarioContractRequest>> violations = validator.validate(usuarioContractRequest);
         if(!violations.isEmpty()) {
             String message = ((ConstraintViolation) violations.toArray()[0]).getMessageTemplate();
-            throw new BussinessException(message, BUSINESS, Status.fromStatusCode(422), "UsuarioServiceImpl.validateFieldUsuarioContractRequest()");
+            throw new LayerException(message, BUSINESS, Status.fromStatusCode(422), "UsuarioServiceImpl.validateFieldUsuarioContractRequest()");
         }
         CpfValidator.isCPF(usuarioContractRequest.getCpf());
 
@@ -77,13 +77,13 @@ public class UsuarioServiceImpl implements UsuarioService {
         UsuarioEntity usuarioEntity = usuarioGateway.buscarUsuario(credencialRequest.getCpf());
         boolean senhavalida = PasswordComponents.isSenhaCorreta(usuarioEntity.getSenha(), credencialRequest.getSenha());
         if(!senhavalida){
-            throw new BussinessException("Senha Incorreta", BUSINESS, Status.fromStatusCode(422), "UsuarioServiceImpl.validarCredenciais()");
+            throw new LayerException("Senha Incorreta", BUSINESS, Status.fromStatusCode(422), "UsuarioServiceImpl.validarCredenciais()");
         }
     }
 
     private void validarCpf(String cpf){
         if(!CpfValidator.isCPF(cpf)){
-            throw new BussinessException("Identificador Cpf Invalido", BUSINESS, Status.fromStatusCode(422), "UsuarioServiceImpl.validarCpf()");
+            throw new LayerException("Identificador Cpf Invalido", BUSINESS, Status.fromStatusCode(422), "UsuarioServiceImpl.validarCpf()");
         }
     }
 
@@ -96,7 +96,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         Set<ConstraintViolation<UsuarioCredencialRequest>> violations = validator.validate(credencialRequest);
         if(!violations.isEmpty()) {
             String message = ((ConstraintViolation) violations.toArray()[0]).getMessageTemplate();
-            throw new BussinessException(message, BUSINESS, Status.fromStatusCode(422), "UsuarioServiceImpl.validateFieldCredencialRequest()");
+            throw new LayerException(message, BUSINESS, Status.fromStatusCode(422), "UsuarioServiceImpl.validateFieldCredencialRequest()");
         }
     }
 

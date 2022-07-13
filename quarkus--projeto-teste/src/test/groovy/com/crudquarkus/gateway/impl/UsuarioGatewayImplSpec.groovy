@@ -2,7 +2,7 @@ package com.crudquarkus.gateway.impl
 
 import com.crudquarkus.datasource.entity.UsuarioEntity
 import com.crudquarkus.datasource.repository.UsuarioRepository
-import com.crudquarkus.exception.GatewayException
+import com.crudquarkus.exception.LayerException
 import spock.lang.Specification
 
 import javax.ws.rs.NotFoundException
@@ -33,7 +33,7 @@ class UsuarioGatewayImplSpec extends Specification {
         usuarioGateway.cadastrarUsuario(usuarioEntity)
 
         then:
-        thrown(GatewayException)
+        thrown(LayerException)
 
         and:
         usuarioRepositoryMock.buscarPeloCpfCnpj(usuarioEntity.getCpf()) >> new UsuarioEntity()
@@ -63,7 +63,7 @@ class UsuarioGatewayImplSpec extends Specification {
         usuarioGateway.buscarUsuario(identificador)
 
         then:
-        thrown(GatewayException)
+        thrown(LayerException)
 
         and:
         usuarioRepositoryMock.buscarPeloCpfCnpj(identificador) >> { throw new NotFoundException() }
