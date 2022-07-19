@@ -26,14 +26,9 @@ public class UsuarioControllerImpl implements UsuarioController {
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     public RestResponse<ContractResponse> cadastrarUsuario(UsuarioContractRequest userDataRequest) {
-        try {
-            service.cadastrarUsuario(userDataRequest);
-            ContractResponse response = new ContractResponse("local", "sucesso", "Usuario com nome: " + userDataRequest.getNome() + " cadastrado com sucesso");
-            return RestResponse.ResponseBuilder.create(Response.Status.OK, response).build();
-        } catch (Exception e) {
-            ContractResponse response = new ContractResponse("local", "error", "aconteceu algum erro ao cadastrar usuario. Error: " + e);
-            return RestResponse.ResponseBuilder.create(Response.Status.NOT_ACCEPTABLE, response).build();
-        }
+        service.cadastrarUsuario(userDataRequest);
+        ContractResponse response = new ContractResponse("local", "sucesso", "Usuario com nome: " + userDataRequest.getNome() + " cadastrado com sucesso");
+        return RestResponse.ResponseBuilder.create(Response.Status.OK, response).build();
     }
 
     @GET
