@@ -4,6 +4,7 @@ import com.crudquarkus.datasource.entity.UsuarioEntity;
 import com.crudquarkus.datasource.repository.UsuarioRepository;
 import com.crudquarkus.exception.LayerException;
 import com.crudquarkus.gateway.UsuarioGateway;
+import com.crudquarkus.models.request.UsuarioContractRequest;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -50,5 +51,21 @@ public class UsuarioGatewayImpl implements UsuarioGateway {
     public void excluirUsuario(String identificador) {
         UsuarioEntity entity = buscarUsuario(identificador);
         usuarioRepository.delete(entity);
+    }
+
+    @Transactional
+    public void atualizarDadosUsuario(UsuarioContractRequest usuarioContractRequest) {
+        UsuarioEntity entity = usuarioRepository.buscarPeloCpfCnpj(usuarioContractRequest.getCpf());
+        mapearAlteracoesUsuarioEntity(entity, usuarioContractRequest);
+        usuarioRepository.persist(entity);
+
+    }
+
+
+    private void mapearAlteracoesUsuarioEntity(UsuarioEntity usuarioEntity, UsuarioContractRequest updateContractRequest) {
+        usuarioEntity.setEmail(updateContractRequest.getEmail());
+        usuarioEntity.setNome(updateContractRequest.getNome());
+        usuarioEntity.setTelefone(updateContractRequest.getTelefone());
+        usuarioEntity.setLogin(updateContractRequest.getLogin());
     }
 }

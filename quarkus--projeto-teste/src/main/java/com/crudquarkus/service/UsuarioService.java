@@ -13,4 +13,6 @@ public interface UsuarioService {
  void validarCredenciais(UsuarioCredencialRequest credencialRequest);
 
  void excluirUsuario(String identificador);
+
+ void atualizadDadosUsuario(UsuarioContractRequest updateContractRequest);
 }

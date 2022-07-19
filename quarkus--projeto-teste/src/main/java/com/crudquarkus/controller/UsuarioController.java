@@ -17,5 +17,7 @@ public interface UsuarioController {
 
     RestResponse<Object> excluirUsuario (String identificador);
 
+    RestResponse<Object> atualizarDadosUsuario(UsuarioContractRequest updateContractRequest);
+
 
 }

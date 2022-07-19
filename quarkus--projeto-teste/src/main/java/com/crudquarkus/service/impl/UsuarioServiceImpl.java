@@ -43,7 +43,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         Set<ConstraintViolation<UsuarioContractRequest>> violations = validator.validate(usuarioContractRequest);
         if(!violations.isEmpty()) {
             String message = ((ConstraintViolation) violations.toArray()[0]).getMessageTemplate();
-            throw new LayerException(message, BUSINESS, Status.fromStatusCode(422), "UsuarioServiceImpl.validateFieldUsuarioContractRequest()");
+            throw new LayerException(message, BUSINESS, Status.NOT_ACCEPTABLE, "UsuarioServiceImpl.validateFieldUsuarioContractRequest()");
         }
         CpfValidator.isCPF(usuarioContractRequest.getCpf());
 
@@ -77,13 +77,13 @@ public class UsuarioServiceImpl implements UsuarioService {
         UsuarioEntity usuarioEntity = usuarioGateway.buscarUsuario(credencialRequest.getCpf());
         boolean senhavalida = PasswordComponents.isSenhaCorreta(usuarioEntity.getSenha(), credencialRequest.getSenha());
         if(!senhavalida){
-            throw new LayerException("Senha Incorreta", BUSINESS, Status.fromStatusCode(422), "UsuarioServiceImpl.validarCredenciais()");
+            throw new LayerException("Senha Incorreta", BUSINESS, Status.NOT_ACCEPTABLE, "UsuarioServiceImpl.validarCredenciais()");
         }
     }
 
     private void validarCpf(String cpf){
         if(!CpfValidator.isCPF(cpf)){
-            throw new LayerException("Identificador Cpf Invalido", BUSINESS, Status.fromStatusCode(422), "UsuarioServiceImpl.validarCpf()");
+            throw new LayerException("Identificador Cpf Invalido", BUSINESS, Status.NOT_ACCEPTABLE, "UsuarioServiceImpl.validarCpf()");
         }
     }
 
@@ -92,11 +92,19 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuarioGateway.excluirUsuario(identificador);
     }
 
+    @Override
+    public void atualizadDadosUsuario(UsuarioContractRequest updateContractRequest) {
+        validarCpf(updateContractRequest.getCpf());
+        validateFieldUsuarioContractRequest(updateContractRequest);
+        usuarioGateway.atualizarDadosUsuario(updateContractRequest);
+
+    }
+
     private void validateFieldCredencialRequest(UsuarioCredencialRequest credencialRequest) {
         Set<ConstraintViolation<UsuarioCredencialRequest>> violations = validator.validate(credencialRequest);
         if(!violations.isEmpty()) {
             String message = ((ConstraintViolation) violations.toArray()[0]).getMessageTemplate();
-            throw new LayerException(message, BUSINESS, Status.fromStatusCode(422), "UsuarioServiceImpl.validateFieldCredencialRequest()");
+            throw new LayerException(message, BUSINESS, Status.NOT_ACCEPTABLE, "UsuarioServiceImpl.validateFieldCredencialRequest()");
         }
     }
 

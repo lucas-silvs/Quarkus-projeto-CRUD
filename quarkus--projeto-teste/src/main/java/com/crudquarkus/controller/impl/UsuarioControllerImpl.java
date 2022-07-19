@@ -23,7 +23,7 @@ public class UsuarioControllerImpl implements UsuarioController {
         this.service = service;
     }
 
-    @PUT
+    @POST
     @Produces(MediaType.APPLICATION_JSON)
     public RestResponse<ContractResponse> cadastrarUsuario(UsuarioContractRequest userDataRequest) {
         service.cadastrarUsuario(userDataRequest);
@@ -49,6 +49,13 @@ public class UsuarioControllerImpl implements UsuarioController {
     @DELETE
     public RestResponse<Object> excluirUsuario(@QueryParam("identificador") String identificador) {
         service.excluirUsuario(identificador);
+        return RestResponse.noContent();
+    }
+
+    @Path("/atualizar-usuario")
+    @PUT
+    public RestResponse<Object> atualizarDadosUsuario(UsuarioContractRequest updateContractRequest) {
+        service.atualizadDadosUsuario(updateContractRequest);
         return RestResponse.noContent();
     }
 
