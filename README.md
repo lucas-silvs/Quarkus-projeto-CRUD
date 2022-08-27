@@ -1,2 +1,2 @@
 # Quarkus-projeto-teste
-projeto teste para aprender as funcionalidades do framework Quarkus
+projeto teste para aprender as funcionalidades da Stack Quarkus
