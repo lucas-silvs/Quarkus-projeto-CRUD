@@ -17,7 +17,6 @@ dependencies {
     testImplementation 'io.rest-assured:rest-assured'
     implementation("io.quarkus:quarkus-config-yaml")
 
-
     // Hibernate ORM specific dependencies
     implementation("io.quarkus:quarkus-hibernate-orm-panache")
 
@@ -36,6 +35,12 @@ dependencies {
     implementation 'org.codehaus.groovy:groovy-all:3.0.11'
     implementation 'net.bytebuddy:byte-buddy:1.12.10'
     implementation 'org.spockframework:spock-core:2.1-groovy-3.0'
+
+    //aws
+    compileOnly 'software.amazon.awssdk:secretsmanager:2.17.243'
+
+
+
 
 
 
