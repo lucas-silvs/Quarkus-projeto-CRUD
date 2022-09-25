@@ -39,6 +39,10 @@ dependencies {
     //aws
     compileOnly 'software.amazon.awssdk:secretsmanager:2.17.243'
 
+    // GSON - mapear json para um objeto
+    // https://mvnrepository.com/artifact/com.google.code.gson/gson
+    implementation 'com.google.code.gson:gson:2.9.1'
+
 
 
 
