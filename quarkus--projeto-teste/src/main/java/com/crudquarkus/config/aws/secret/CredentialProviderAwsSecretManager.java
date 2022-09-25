@@ -14,6 +14,7 @@ import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRespon
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.ws.rs.core.Response;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -26,6 +27,7 @@ a busca das credencias
  */
 @ApplicationScoped
 @Unremovable
+@Named("aws-secret-manager") //nomeando o credential provider para especifica-lo no application-secret.yaml
 @IfBuildProfile("secret")
 public class CredentialProviderAwsSecretManager implements CredentialsProvider {
 
