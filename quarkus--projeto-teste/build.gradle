@@ -29,6 +29,8 @@ dependencies {
     // JDBC driver dependencies
     implementation("io.quarkus:quarkus-jdbc-mysql")
 
+    implementation("io.quarkus:quarkus-jdbc-mssql")
+
     implementation("io.quarkus:quarkus-resteasy-reactive-jackson")
 
     //Spock Framework

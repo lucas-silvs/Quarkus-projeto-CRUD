@@ -3,11 +3,11 @@ quarkus:
     port: 5000
 
   datasource:
-    db-kind: mysql
-    username: wb-quarkus-usuarios
-    password: quarkusdb
+    db-kind: mssql
+    username: sa
+    password: Pass@word
     jdbc:
-      url: "jdbc:mysql://127.0.0.1:3303/db_quarkus"
+      url: "jdbc:sqlserver://127.0.0.1:5434;DatabaseName=db_quarkus"
 
   hibernate-orm:
     database:
