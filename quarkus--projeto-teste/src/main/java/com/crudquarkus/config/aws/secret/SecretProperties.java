@@ -7,7 +7,7 @@ import io.smallrye.config.ConfigMapping;
 public interface SecretProperties {
 
     String secretName();
-    String url();
+//    String url(); apenas caso utilize teste local com LocalStack
     String region();
 
 

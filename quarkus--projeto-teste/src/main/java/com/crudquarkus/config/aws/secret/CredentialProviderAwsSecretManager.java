@@ -1,7 +1,6 @@
 package com.crudquarkus.config.aws.secret;
 
 
-import com.crudquarkus.exception.LayerException;
 import com.google.gson.Gson;
 import io.quarkus.arc.Unremovable;
 import io.quarkus.arc.profile.IfBuildProfile;
@@ -15,9 +14,6 @@ import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRespon
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.ws.rs.core.Response;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,15 +39,11 @@ public class CredentialProviderAwsSecretManager implements CredentialsProvider {
      */
     @Override
     public Map<String, String> getCredentials(String credentialsProviderName) {
-        try {
-            this.secretsManagerClient = SecretsManagerClient.builder()
-                    .endpointOverride(new URI(secretProperties.url()))
-                    .region(Region.of(secretProperties.region()))
-                    .credentialsProvider(ProfileCredentialsProvider.create())
-                    .build();
-        } catch (URISyntaxException e) {
-            throw new LayerException("Erro ao instanciar SecretsManagerClient: "+ e, "INTERNO", Response.Status.INTERNAL_SERVER_ERROR, "CredentialProviderAwsSecretManager.getCredentials()");
-        }
+        this.secretsManagerClient = SecretsManagerClient.builder()
+                //.endpointOverride(new URI(secretProperties.url())) somente para teste local com LocalStack
+                .region(Region.of(secretProperties.region()))
+                .credentialsProvider(ProfileCredentialsProvider.create())
+                .build();
 
         GetSecretValueRequest secretValueRequest = GetSecretValueRequest.builder()
                 .secretId(secretProperties.secretName())
