@@ -2,6 +2,9 @@ quarkus:
   http:
     port: 5000
 
+    cors:
+      ~: true
+      origins: 'http://localhost:5173'
   datasource:
     db-kind: mysql
     username: wb-quarkus-usuarios
