@@ -6,28 +6,65 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Formulario } from "../Formulario";
-
-const bull = (
-  <Box
-    component="span"
-    sx={{ display: "inline-block", mx: "2px", transform: "scale(0.8)" }}
-  >
-    •
-  </Box>
-);
-
-const card = (
-  <React.Fragment>
-    <CardContent>
-      <Formulario />
-    </CardContent>
-  </React.Fragment>
-);
+import CardMedia from "@mui/material/CardMedia";
+import { Collapse, Alert, IconButton } from "@mui/material";
+import { useState } from "react";
 
 export default function OutlinedCard() {
+  const [sucesso, setSucesso] = useState(false);
+  function handleAlterarStatusNotificacaoSucesso(status: boolean) {
+    setSucesso(status);
+  }
+
+  const [falha, setFalha] = useState(false);
+  function handleAlterarStatusNotificacaoFalha(status: boolean) {
+    setFalha(status);
+  }
+
   return (
     <Box sx={{ minWidth: 275 }}>
-      <Card variant="outlined">{card}</Card>
+      <Card variant="outlined" style={{ borderRadius: "0.50rem" }}>
+        <React.Fragment>
+          <CardMedia
+            component="img"
+            height="200"
+            image="https://pbs.twimg.com/profile_images/1120849099216052228/YWB0w5p4_400x400.jpg"
+            alt="rato cego"
+            style={{
+              objectFit: "none",
+              objectPosition: "center top",
+            }}
+          />
+          <CardContent style={{ padding: "2rem" }}>
+            <Typography
+              gutterBottom
+              variant="h5"
+              component="div"
+              style={{ padding: "1rem" }}
+            >
+              Validar Credenciais
+            </Typography>
+            <Formulario
+              handleAlterarStatusNotificacaoSucesso={
+                handleAlterarStatusNotificacaoSucesso
+              }
+              handleAlterarStatusNotificacaoFalha={
+                handleAlterarStatusNotificacaoFalha
+              }
+            />
+          </CardContent>
+        </React.Fragment>
+        <Collapse in={sucesso}>
+          <Alert variant="outlined" severity="success">
+            Ta validado meu nobre
+          </Alert>
+        </Collapse>
+        <Collapse in={falha}>
+          <Alert variant="outlined" severity="error">
+            Ta errado isso ai
+          </Alert>
+        </Collapse>
+      </Card>
     </Box>
   );
 }
