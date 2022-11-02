@@ -3,6 +3,7 @@ package com.crudquarkus.controller.impl;
 import com.crudquarkus.controller.UsuarioController;
 import com.crudquarkus.models.request.UsuarioContractRequest;
 import com.crudquarkus.models.request.UsuarioCredencialRequest;
+import com.crudquarkus.models.request.UsuarioCredencialTecladoVirtualRequest;
 import com.crudquarkus.models.response.ContractResponse;
 import com.crudquarkus.models.response.UsuarioContractResponse;
 import com.crudquarkus.service.UsuarioService;
@@ -40,7 +41,7 @@ public class UsuarioControllerImpl implements UsuarioController {
     @Path("/validar-credencial")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public RestResponse<Object> validarCredenciais(UsuarioCredencialRequest credencialRequest) {
+    public RestResponse validarCredenciais(UsuarioCredencialRequest credencialRequest) {
         service.validarCredenciais(credencialRequest);
         return RestResponse.noContent();
     }
@@ -56,6 +57,12 @@ public class UsuarioControllerImpl implements UsuarioController {
     @PUT
     public RestResponse<Object> atualizarDadosUsuario(UsuarioContractRequest updateContractRequest) {
         service.atualizadDadosUsuario(updateContractRequest);
+        return RestResponse.noContent();
+    }
+
+    @Override
+    public RestResponse validarCredenciaisComTecladoVirtual(UsuarioCredencialTecladoVirtualRequest credencialTecladoVirtualRequest) {
+        service.validarCredenciaisTecladoVirtual(credencialTecladoVirtualRequest);
         return RestResponse.noContent();
     }
 

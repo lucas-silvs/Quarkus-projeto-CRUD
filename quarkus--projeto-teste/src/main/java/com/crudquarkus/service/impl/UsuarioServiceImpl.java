@@ -1,11 +1,13 @@
 package com.crudquarkus.service.impl;
 
 import com.crudquarkus.components.PasswordComponents;
+import com.crudquarkus.components.TecladoVirtualComponent;
 import com.crudquarkus.datasource.entity.UsuarioEntity;
 import com.crudquarkus.exception.LayerException;
 import com.crudquarkus.gateway.UsuarioGateway;
 import com.crudquarkus.models.request.UsuarioContractRequest;
 import com.crudquarkus.models.request.UsuarioCredencialRequest;
+import com.crudquarkus.models.request.UsuarioCredencialTecladoVirtualRequest;
 import com.crudquarkus.models.response.UsuarioContractResponse;
 import com.crudquarkus.service.UsuarioService;
 import com.crudquarkus.service.converter.DateConverter;
@@ -98,6 +100,26 @@ public class UsuarioServiceImpl implements UsuarioService {
         validateFieldUsuarioContractRequest(updateContractRequest);
         usuarioGateway.atualizarDadosUsuario(updateContractRequest);
 
+    }
+
+    @Override
+    public void validarCredenciaisTecladoVirtual(UsuarioCredencialTecladoVirtualRequest credencialTecladoVirtualRequest) {
+        validateFieldCredencialTecladoVirtualRequest(credencialTecladoVirtualRequest);
+        validarCpf(credencialTecladoVirtualRequest.getCpf());
+        UsuarioEntity usuarioEntity = usuarioGateway.buscarUsuario(credencialTecladoVirtualRequest.getCpf());
+        boolean senhavalida = TecladoVirtualComponent.isSenhaCorreta(usuarioEntity.getSenha(), credencialTecladoVirtualRequest.getTecladoVirtual(), credencialTecladoVirtualRequest.getTeclasPresionadas());
+        if(!senhavalida){
+            throw new LayerException("Senha Incorreta", BUSINESS, Status.NOT_ACCEPTABLE, "UsuarioServiceImpl.validarCredenciais()");
+        }
+
+    }
+
+    private void validateFieldCredencialTecladoVirtualRequest(UsuarioCredencialTecladoVirtualRequest credencialRequest) {
+        Set<ConstraintViolation<UsuarioCredencialTecladoVirtualRequest>> violations = validator.validate(credencialRequest);
+        if (!violations.isEmpty()) {
+            String message = ((ConstraintViolation) violations.toArray()[0]).getMessageTemplate();
+            throw new LayerException(message, BUSINESS, Status.NOT_ACCEPTABLE, "UsuarioServiceImpl.validarCredenciaisTecladoVirtual()");
+        }
     }
 
     private void validateFieldCredencialRequest(UsuarioCredencialRequest credencialRequest) {
