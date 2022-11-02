@@ -1,15 +1,16 @@
 package com.crudquarkus.models.request;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 public class UsuarioCredencialTecladoVirtualRequest {
     @NotBlank(message = "campo não pode ser em branco")
     private String cpf;
 
-    @NotBlank(message = "campo não pode ser em branco")
+    @NotNull
     private String[][] tecladoVirtual;
 
-    @NotBlank(message = "campo não pode ser em branco")
+    @NotNull(message = "campo não pode ser em branco")
     private int[] teclasPresionadas;
 
     public String[][] getTecladoVirtual() {
