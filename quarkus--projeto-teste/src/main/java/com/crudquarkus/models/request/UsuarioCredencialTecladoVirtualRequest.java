@@ -8,16 +8,16 @@ public class UsuarioCredencialTecladoVirtualRequest {
     private String cpf;
 
     @NotNull
-    private String[][] tecladoVirtual;
+    private char[][] tecladoVirtual;
 
     @NotNull(message = "campo não pode ser em branco")
     private int[] teclasPresionadas;
 
-    public String[][] getTecladoVirtual() {
+    public char[][] getTecladoVirtual() {
         return tecladoVirtual;
     }
 
-    public void setTecladoVirtual(String[][] tecladoVirtual) {
+    public void setTecladoVirtual(char[][] tecladoVirtual) {
         this.tecladoVirtual = tecladoVirtual;
     }
 

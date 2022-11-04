@@ -61,6 +61,7 @@ public class UsuarioControllerImpl implements UsuarioController {
     }
 
     @Path("/validar-credencial-teclado-virtual")
+    @POST
     public RestResponse validarCredenciaisComTecladoVirtual(UsuarioCredencialTecladoVirtualRequest credencialTecladoVirtualRequest) {
         service.validarCredenciaisTecladoVirtual(credencialTecladoVirtualRequest);
         return RestResponse.noContent();
