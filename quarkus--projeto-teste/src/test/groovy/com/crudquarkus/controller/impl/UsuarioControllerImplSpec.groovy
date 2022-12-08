@@ -38,9 +38,10 @@ class UsuarioControllerImplSpec extends Specification {
         def response = usuarioController.cadastrarUsuario(requestCadastrarUsuario)
 
         then:
-        response.getStatus() == 422
-        response.getEntity().getSituacaoRequest() == "error"
-        response.getEntity().getMensagemParaUsuario().contains("erro na camada de Business")
+        thrown(LayerException)
+//        response.getStatus() == 500
+//        response.getEntity().getSituacaoRequest() == "error"
+//        response.getEntity().getMensagemParaUsuario().contains("erro na camada de Business")
 
         and:
         usuarioService.cadastrarUsuario(requestCadastrarUsuario) >> {throw new LayerException("Excessao", "BUSINESS", Response.Status.INTERNAL_SERVER_ERROR, "")}
