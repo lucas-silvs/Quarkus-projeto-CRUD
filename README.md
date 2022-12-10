@@ -44,9 +44,9 @@ Com isso podemos executar local com o comando abaixo:
 ```
 docker run --name quarkus--crud \
 -p 5000:5000 \
---network=quarkus-projeto-teste_default \
--e DATABASE_HOST="jdbc:mysql://quarkus-projeto-teste_db_1:3306/db_quarkus" \
--e DATABASE_USER_NAME=wb-quarkus-usuarios \
+--network=mysqldocker_default \
+-e DATABASE_HOST="jdbc:mysql://mysqldocker_db_1:3306/db_quarkus" \
+-e DATABASE_USER_NAME=wb-usuarios \
 -e DATABASE_USER_PASSWORD=quarkusdb \
 -e QUARKUS_PROFILE=docker \
 projeto--teste-quarkus;
