@@ -10,3 +10,4 @@ resources:
   - secrets.yaml
   - namespace.yaml
   - configMap.yaml
+  - ingress.yaml
