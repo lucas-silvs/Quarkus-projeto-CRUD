@@ -4,8 +4,8 @@ quarkus:
 
   datasource:
     db-kind: mysql
-    username: wb-quarkus-usuarios
-    password: quarkusdb
+    username: ${DATABASE_USER_NAME}
+    password: ${DATABASE_USER_PASSWORD}
     jdbc:
       url: ${DATABASE_HOST}
 
