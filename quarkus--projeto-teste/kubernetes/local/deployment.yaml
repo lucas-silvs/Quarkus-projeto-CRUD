@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quarkus--crud
+  namespace: quarkus--crud
+  labels:
+    app: quarkus--crud
+spec:
+  selector:
+    matchLabels:
+      app: quarkus--crud
+  template:
+    metadata:
+      labels:
+        app: quarkus--crud
+    spec:
+      containers:
+        - name: quarkus--crud
+          image: localhost:32000/quarkus-crud:local
+          resources:
+            requests:
+              memory: "400Mi"
+              cpu: "400m"
+            limits:
+              memory: "400Mi"
+              cpu: "400m"
+
+          envFrom:
+            - configMapRef:
+                name: quarkus--crud-cm
+          ports:
+            - containerPort: 5000
+            - containerPort: 9090
