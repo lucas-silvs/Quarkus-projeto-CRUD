@@ -1,5 +1,8 @@
 # Quarkus-projeto-teste
-projeto teste para aprender as funcionalidades da Stack Quarkus
+projeto teste para aprender as funcionalidades da Stack Quarkus, onde será desenvolvido
+um projeto CRUD para validar o uso utilizando ferramentas de mercado (AWS Secret Manager, AWS EKS), criptografia (Bcrypt)
+e avaliar vantagens de utiliza-lá com o GraalVM(ainda não implementado no projeto).
+
 
 
 ## Tecnologias utilizadas
