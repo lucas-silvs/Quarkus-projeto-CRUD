@@ -26,7 +26,7 @@ Executando esse comando, será criado o banco de dados, o usuario para conexão,
 e a tabela utilizada pelo projeto.
 
 
-# Criação da imagem Docker
+## Criação da imagem Docker
 
 para realizar a criação da imagem docker do projeto, primeiro vc deve executar o
 comando abaixo na raiz do projeto:
