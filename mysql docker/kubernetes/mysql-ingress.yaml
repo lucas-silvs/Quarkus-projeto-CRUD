@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/server-alias: mysql.cluster.com
+  labels:
+    app: mysql
+  name: mysql-ingress
+  namespace: mysql
+
+spec:
+  rules:
+    - host: mysql.cluster.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: mysql
+                port:
+                  number: 3306
