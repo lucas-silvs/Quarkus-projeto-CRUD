@@ -92,3 +92,12 @@ ENV AB_JOLOKIA_OFF=""
 ENV JAVA_OPTS="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
 ENV JAVA_APP_JAR="/deployments/quarkus-run.jar"
 
+# Para execução Local deve executar o comando abaixo:
+#docker run --name quarkus--crud \
+ #-p 5000:5000 \
+ #--network=quarkus-projeto-teste_default \
+ #-e DATABASE_HOST="jdbc:mysql://quarkus-projeto-teste_db_1:3306/db_quarkus" \
+ #-e DATABASE_USER_NAME=wb-quarkus-usuarios \
+ #-e DATABASE_USER_PASSWORD=quarkusdb \
+ #-e QUARKUS_PROFILE=docker \
+ #projeto--teste-quarkus;

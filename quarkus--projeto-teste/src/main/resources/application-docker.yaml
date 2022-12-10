@@ -1,0 +1,14 @@
+quarkus:
+  http:
+    port: 5000
+
+  datasource:
+    db-kind: mysql
+    username: ${DATABASE_USER_NAME}
+    password: ${DATABASE_USER_PASSWORD}
+    jdbc:
+      url: ${DATABASE_HOST}
+
+  hibernate-orm:
+    database:
+      generation: update
