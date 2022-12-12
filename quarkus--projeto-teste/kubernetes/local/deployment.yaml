@@ -21,19 +21,16 @@ spec:
             httpGet:
               path: /q/health/live
               port: 5000
-            initialDelaySeconds: 60
-            periodSeconds: 15
-            failureThreshold: 3
+            initialDelaySeconds: 14
+            periodSeconds: 10
             timeoutSeconds: 10
           livenessProbe:
             httpGet:
               path: /q/health/ready
               port: 5000
-            initialDelaySeconds: 60
-            periodSeconds: 15
-            failureThreshold: 3
+            initialDelaySeconds: 14
+            periodSeconds: 10
             timeoutSeconds: 10
-
           resources:
             requests:
               memory: "400Mi"
