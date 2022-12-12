@@ -16,7 +16,24 @@ spec:
     spec:
       containers:
         - name: quarkus--crud
-          image: localhost:32000/quarkus-crud:local
+          image: localhost:32000/quarkus-crud:latest
+          readinessProbe:
+            httpGet:
+              path: /q/health/live
+              port: 5000
+            initialDelaySeconds: 60
+            periodSeconds: 15
+            failureThreshold: 3
+            timeoutSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /q/health/ready
+              port: 5000
+            initialDelaySeconds: 60
+            periodSeconds: 15
+            failureThreshold: 3
+            timeoutSeconds: 10
+
           resources:
             requests:
               memory: "400Mi"
@@ -30,4 +47,4 @@ spec:
                 name: quarkus--crud-cm
           ports:
             - containerPort: 5000
-            - containerPort: 9090
+
