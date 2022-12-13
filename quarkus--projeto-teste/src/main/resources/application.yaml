@@ -4,7 +4,7 @@ quarkus:
 
   datasource:
     db-kind: mysql
-    username: wb-quarkus-usuarios
+    username: wb-usuarios
     password: quarkusdb
     jdbc:
       url: "jdbc:mysql://127.0.0.1:3303/db_quarkus"
@@ -12,3 +12,9 @@ quarkus:
   hibernate-orm:
     database:
       generation: update
+
+
+
+  health:
+    extensions:
+      enabled: true
