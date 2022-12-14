@@ -13,15 +13,19 @@ quarkus:
 #      body-limit: 1024
 
   log:
+    level: INFO
 
     category:
       "io.quarkus.category":
         level: INFO
 
-      "org.jboss.resteasy.reactive.logging":
+      "org.jboss.resteasy.reactive.server.handlers.ParameterHandler":
         level: DEBUG
 
       "io.quarkus":
         level: INFO
       "org.apache.http":
+        level: DEBUG
+
+      "org.jboss.resteasy.reactive.common.core.AbstractResteasyReactiveContext":
         level: DEBUG

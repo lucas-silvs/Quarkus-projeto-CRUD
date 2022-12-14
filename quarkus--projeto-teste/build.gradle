@@ -29,7 +29,7 @@ dependencies {
     implementation("io.quarkus:quarkus-jdbc-mysql")
 
     implementation 'io.quarkus:quarkus-resteasy-reactive'
-    implementation("io.quarkus:quarkus-rest-client-reactive-jackson")
+    implementation 'io.quarkus:quarkus-resteasy-reactive-jackson'
 
     //Spock Framework
     implementation 'org.codehaus.groovy:groovy-all:3.0.11'
