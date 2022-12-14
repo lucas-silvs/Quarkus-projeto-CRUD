@@ -1,6 +1,27 @@
+#quarkus.http.port=5000
+#quarkus.rest-client.logging.scope=request-response
+#quarkus.rest-client.logging.body-limit=1024
+#quarkus.log.category."org.jboss.resteasy.reactive.client.logging".level=DEBUG
+
 quarkus:
   http:
     port: 5000
+#
+#  rest-client:
+#    logging:
+#      scope: "request-response"
+#      body-limit: 1024
 
-quarkus.rest-client.logging: request-response
-quarkus.rest-client."com.crudquarkus.controller.impl.UsuarioControllerImpl".logging: all
+  log:
+
+    category:
+      "io.quarkus.category":
+        level: INFO
+
+      "org.jboss.resteasy.reactive.logging":
+        level: DEBUG
+
+      "io.quarkus":
+        level: INFO
+      "org.apache.http":
+        level: DEBUG
