@@ -33,7 +33,7 @@ public class LoggingFilter implements ContainerResponseFilter {
         final String path = info.getRequestUri().toString();
         final String address = request.remoteAddress().toString();
 
-        LOG.infof("Request: %s - Path: %s - body: %s", method, path);
+        LOG.infof("Request: %s - Path: %s", method, path);
 
 
 
