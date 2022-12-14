@@ -2,19 +2,5 @@ quarkus:
   http:
     port: 5000
 
-  datasource:
-    db-kind: mysql
-    username: wb-usuarios
-    password: quarkusdb
-    jdbc:
-      url: "jdbc:mysql://127.0.0.1:3303/db_quarkus"
-
-  hibernate-orm:
-    database:
-      generation: update
-
-
-
-  health:
-    extensions:
-      enabled: true
+quarkus.rest-client.logging: request-response
+quarkus.rest-client."com.crudquarkus.controller.impl.UsuarioControllerImpl".logging: all
