@@ -7,7 +7,7 @@ e avaliar vantagens de utiliza-lá com o GraalVM(ainda não implementado no proj
 
 ## Tecnologias utilizadas
 
-- Java 11
+- Java 17
 - Quarkus
 - Docker
 - Kubernetes
