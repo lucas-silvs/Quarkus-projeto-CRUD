@@ -96,7 +96,7 @@ docker run --name quarkus--crud \
 -e DATABASE_USER_PASSWORD=quarkusdb \
 -e QUARKUS_PROFILE=docker \
 localhost:32000/quarkus-crud-graalvm:latest;
-
+```
 
 ## Execução em um Cluster Kubernetes local
 
