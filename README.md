@@ -53,6 +53,7 @@ docker run --name quarkus--crud \
 -e QUARKUS_PROFILE=docker \
 ocalhost:32000/quarkus-crud:local;
 ```
+
 ### GraalVM
 
 Para criar uma imagem usando o GraalVM, a execução do build do projeto deve ser realizada de forma diferente.
