@@ -14,6 +14,8 @@
 # docker run -i --rm -p 8080:8080 quarkus/quarkus--projeto-teste
 #
 ###
+
+
 FROM registry.access.redhat.com/ubi8/ubi-minimal:8.5
 WORKDIR /work/
 RUN chown 1001 /work \
@@ -21,7 +23,7 @@ RUN chown 1001 /work \
     && chown 1001:root /work
 COPY --chown=1001:root build/*-runner /work/application
 
-EXPOSE 8080
+EXPOSE 5000
 USER 1001
 
 CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]

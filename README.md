@@ -31,6 +31,8 @@ e a tabela utilizada pelo projeto.
 
 ## Criação da imagem Docker
 
+### JVM
+
 para realizar a criação da imagem docker do projeto, primeiro vc deve executar o
 comando abaixo na raiz do projeto:
 
@@ -49,8 +51,51 @@ docker run --name quarkus--crud \
 -e DATABASE_USER_NAME=wb-usuarios \
 -e DATABASE_USER_PASSWORD=quarkusdb \
 -e QUARKUS_PROFILE=docker \
-projeto--teste-quarkus;
+ocalhost:32000/quarkus-crud:local;
 ```
+### GraalVM
+
+Para criar uma imagem usando o GraalVM, a execução do build do projeto deve ser realizada de forma diferente.
+Portanto, para construir um build do projeto para ser executado com a imagem Docker no modo Native, execute o comando abaixo na pasta "quarkus--projeto-teste":
+
+```
+gradle build -Dquarkus.package.type=native -Dquarkus.profile=docker -Dquarkus.native.container-runtime=docker
+```
+
+Executando esse comando, informa que será executado no modo nativo (sem JVM) e com o perfil "docker", pois diferente da
+execução com JVM, a definição de perfil é feita no momento do build
+
+Com o build finalizado, será criado uma pasta com os arquivos que serão utilizados pelo Dockerfile para criar a imagem utilizando
+o GraalVM:
+
+```
+├── quarkus--projeto-teste-1.0-native-image-source-jar
+│ ├── lib
+│ ├── quarkus--projeto-teste-1.0-runner.build_artifacts.txt
+│ ├── quarkus--projeto-teste-1.0-runner-build-output-stats.json
+│ ├── quarkus--projeto-teste-1.0-runner.jar
+│ └── quarkus--projeto-teste-1.0-runner-timing-stats.json
+├── quarkus--projeto-teste-1.0-runner
+```
+
+Confirmando a execução do build com sucesso, o proximo passo é criar a imagem Docker com o comando abaixo:
+
+```
+docker build -t localhost:32000/quarkus-crud-graalvm:latest -f src/main/docker/Dockerfile.native . 
+```
+
+Ao finalizar o build, para executar localmente e executado o mesmo comando :
+
+```
+docker run --name quarkus--crud \
+-p 5000:5000 \
+--network=mysqldocker_default \
+-e DATABASE_HOST="jdbc:mysql://mysqldocker_db_1:3306/db_quarkus" \
+-e DATABASE_USER_NAME=wb-usuarios \
+-e DATABASE_USER_PASSWORD=quarkusdb \
+-e QUARKUS_PROFILE=docker \
+localhost:32000/quarkus-crud-graalvm:latest;
+
 
 ## Execução em um Cluster Kubernetes local
 
