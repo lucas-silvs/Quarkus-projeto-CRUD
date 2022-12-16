@@ -29,7 +29,7 @@ public class UsuarioControllerImpl implements UsuarioController {
         return RestResponse.ResponseBuilder.create(Response.Status.OK, response).build();
     }
 
-    public RestResponse<UsuarioContractResponse> buscarUsuario(@QueryParam("identificador") String identificador) {
+    public RestResponse<UsuarioContractResponse> buscarUsuario( String identificador) {
         UsuarioContractResponse usuario = service.buscarUsuario(identificador);
         return RestResponse.ResponseBuilder.create(Response.Status.OK, usuario).build();
     }

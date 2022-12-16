@@ -18,7 +18,7 @@ public interface UsuarioController {
     RestResponse<ContractResponse> cadastrarUsuario(UsuarioContractRequest userDataRequest);
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    RestResponse<UsuarioContractResponse> buscarUsuario(String identificador);
+    RestResponse<UsuarioContractResponse> buscarUsuario(@QueryParam("identificador") String identificador);
 
     @Path("/validar-credencial")
     @POST
