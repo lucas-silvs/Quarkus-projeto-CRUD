@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: quarkus--crud
-          image: localhost:32000/quarkus-crud:latest
+          image: localhost:32000/quarkus-crud-graalvm:latest
           readinessProbe:
             httpGet:
               path: /q/health/live
