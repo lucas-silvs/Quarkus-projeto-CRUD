@@ -1,9 +1,16 @@
-# Quarkus-projeto-teste
+# Quarkus - Projeto de estudo da Stack
 projeto teste para aprender as funcionalidades da Stack Quarkus, onde será desenvolvido
 um projeto CRUD para validar o uso utilizando ferramentas de mercado (AWS Secret Manager, AWS EKS), criptografia (Bcrypt)
 e avaliar vantagens de utiliza-lá com o GraalVM(ainda não implementado no projeto).
 
+# Indice
 
+1. [Tecnologias utilizadas](#tecnologias-utilizadas)
+2. [Tecnologias utilizadas](#tecnologias-utilizadas)
+3. [Iniciar banco de dados Mysql](#iniciar-banco-de-dados-mysql)
+4. [Criação da imagem Docker](#criação-da-imagem-docker)
+5. [Execução em um Cluster Kubernetes local](#execução-em-um-cluster-kubernetes-local)
+6. [Referencias](#referencias)
 
 ## Tecnologias utilizadas
 
