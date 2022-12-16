@@ -1,7 +1,11 @@
 package com.crudquarkus.exception;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
 import javax.ws.rs.core.Response.Status;
 
+
+@RegisterForReflection
 public class LayerException extends RuntimeException{
 
     private final String layer;
