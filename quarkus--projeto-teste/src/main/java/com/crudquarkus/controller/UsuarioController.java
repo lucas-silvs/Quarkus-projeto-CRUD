@@ -27,7 +27,7 @@ public interface UsuarioController {
 
     @Path("/excluir-usuario")
     @DELETE
-    RestResponse<Object> excluirUsuario (String identificador);
+    RestResponse<Object> excluirUsuario (@QueryParam("identificador") String identificador);
 
     @Path("/atualizar-usuario")
     @PUT

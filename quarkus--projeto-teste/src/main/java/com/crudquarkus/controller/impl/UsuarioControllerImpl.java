@@ -10,7 +10,6 @@ import com.crudquarkus.service.UsuarioService;
 import org.jboss.resteasy.reactive.RestResponse;
 
 import javax.inject.Inject;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 
@@ -39,7 +38,7 @@ public class UsuarioControllerImpl implements UsuarioController {
         return RestResponse.noContent();
     }
 
-    public RestResponse excluirUsuario(@QueryParam("identificador") String identificador) {
+    public RestResponse excluirUsuario(String identificador) {
         service.excluirUsuario(identificador);
         return RestResponse.noContent();
     }
