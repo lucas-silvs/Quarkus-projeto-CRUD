@@ -1,7 +1,10 @@
 package com.crudquarkus.service.validator;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
 import java.util.InputMismatchException;
 
+@RegisterForReflection
 public class CpfValidator {
 
     private CpfValidator() {
