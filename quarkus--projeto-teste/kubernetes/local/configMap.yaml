@@ -6,5 +6,3 @@ metadata:
 data:
   QUARKUS_PROFILE: "docker"
   DATABASE_HOST: "jdbc:mysql://10.152.183.176:3306/db_quarkus"
-  DATABASE_USER_NAME: "wb-usuarios"
-  DATABASE_USER_PASSWORD: "quarkusdb"

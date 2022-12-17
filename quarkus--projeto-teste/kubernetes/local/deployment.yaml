@@ -21,16 +21,16 @@ spec:
             httpGet:
               path: /q/health/live
               port: 5000
-            initialDelaySeconds: 14
-            periodSeconds: 10
-            timeoutSeconds: 10
+            initialDelaySeconds: 1
+            periodSeconds: 3
+            timeoutSeconds: 2
           livenessProbe:
             httpGet:
               path: /q/health/ready
               port: 5000
-            initialDelaySeconds: 14
-            periodSeconds: 10
-            timeoutSeconds: 10
+            initialDelaySeconds: 1
+            periodSeconds: 3
+            timeoutSeconds: 2
           resources:
             requests:
               memory: "400Mi"
@@ -38,6 +38,18 @@ spec:
             limits:
               memory: "400Mi"
               cpu: "400m"
+          env:
+            - name: DATABASE_USER_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: quarkus--crud-secret
+                  key: database_username
+
+            - name: DATABASE_USER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: quarkus--crud-secret
+                  key: database_password
 
           envFrom:
             - configMapRef:
