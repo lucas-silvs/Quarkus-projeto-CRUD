@@ -1,19 +1,10 @@
-#quarkus.http.port=5000
-#quarkus.rest-client.logging.scope=request-response
-#quarkus.rest-client.logging.body-limit=1024
-#quarkus.log.category."org.jboss.resteasy.reactive.client.logging".level=DEBUG
-
 quarkus:
   http:
     port: 5000
-#
-#  rest-client:
-#    logging:
-#      scope: "request-response"
-#      body-limit: 1024
 
   log:
     level: INFO
+    min-level: TRACE
 
     category:
       "io.quarkus.category":
@@ -22,10 +13,8 @@ quarkus:
       "org.jboss.resteasy.reactive.server.handlers.ParameterHandler":
         level: DEBUG
 
-      "io.quarkus":
-        level: INFO
       "org.apache.http":
-        level: DEBUG
+        level: TRACE
 
       "org.jboss.resteasy.reactive.common.core.AbstractResteasyReactiveContext":
-        level: DEBUG
+        level: TRACE
