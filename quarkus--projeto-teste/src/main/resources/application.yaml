@@ -1,6 +1,10 @@
 quarkus:
   http:
     port: 5000
+    access-log:
+      enabled: true
+
+
 
   log:
     level: INFO
@@ -8,7 +12,7 @@ quarkus:
 
     category:
       "io.quarkus.category":
-        level: INFO
+        level: TRACE
 
       "org.jboss.resteasy.reactive.server.handlers.ParameterHandler":
         level: DEBUG
@@ -16,5 +20,5 @@ quarkus:
       "org.apache.http":
         level: TRACE
 
-      "org.jboss.resteasy.reactive.common.core.AbstractResteasyReactiveContext":
+      "org.jboss.resteasy.reactive":
         level: TRACE
