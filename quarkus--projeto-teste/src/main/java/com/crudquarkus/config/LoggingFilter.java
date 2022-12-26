@@ -1,5 +1,6 @@
 package com.crudquarkus.config;
 
+import com.google.gson.Gson;
 import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.http.HttpServerResponse;
 import org.apache.commons.io.IOUtils;
@@ -68,6 +69,13 @@ public class LoggingFilter implements ContainerRequestFilter, ContainerResponseF
 
     @Override
     public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext) throws IOException {
+
+        final int statusCode= responseContext.getStatus();
+        final String path = info.getRequestUri().toString();
+        final String timeStamp = formatter.format(LocalDateTime.now());
+        String bodyOrParams = new Gson().toJson(responseContext.getEntity());
+
+        LOG.info(String.format("%s -- Status Code: %s - Path: %s -- Response Body: %s", timeStamp, statusCode, path, bodyOrParams ));
 
     }
 }
