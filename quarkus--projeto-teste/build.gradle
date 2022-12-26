@@ -47,6 +47,10 @@ dependencies {
 
     //Log4J2
     implementation("org.jboss.logmanager:log4j2-jboss-logmanager")
+
+    //Apache-commons
+    implementation 'commons-io:commons-io:2.11.0'
+
 }
 group 'com.somnus'
 version '1.0'
