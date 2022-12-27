@@ -9,16 +9,3 @@ quarkus:
   log:
     level: INFO
     min-level: TRACE
-
-    category:
-      "io.quarkus.category":
-        level: TRACE
-
-      "org.jboss.resteasy.reactive.server.handlers.ParameterHandler":
-        level: DEBUG
-
-      "org.apache.http":
-        level: TRACE
-
-      "org.jboss.resteasy.reactive":
-        level: TRACE
