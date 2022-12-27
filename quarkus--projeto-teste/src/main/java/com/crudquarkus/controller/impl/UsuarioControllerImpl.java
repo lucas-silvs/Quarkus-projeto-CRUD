@@ -38,17 +38,17 @@ public class UsuarioControllerImpl implements UsuarioController {
         return RestResponse.noContent();
     }
 
-    public RestResponse excluirUsuario(String identificador) {
+    public RestResponse<Object> excluirUsuario(String identificador) {
         service.excluirUsuario(identificador);
         return RestResponse.noContent();
     }
 
-    public RestResponse atualizarDadosUsuario(UsuarioContractRequest updateContractRequest) {
+    public RestResponse<Object> atualizarDadosUsuario(UsuarioContractRequest updateContractRequest) {
         service.atualizadDadosUsuario(updateContractRequest);
         return RestResponse.noContent();
     }
 
-    public RestResponse validarCredenciaisComTecladoVirtual(UsuarioCredencialTecladoVirtualRequest credencialTecladoVirtualRequest) {
+    public RestResponse<Object> validarCredenciaisComTecladoVirtual(UsuarioCredencialTecladoVirtualRequest credencialTecladoVirtualRequest) {
         service.validarCredenciaisTecladoVirtual(credencialTecladoVirtualRequest);
         return RestResponse.noContent();
     }
