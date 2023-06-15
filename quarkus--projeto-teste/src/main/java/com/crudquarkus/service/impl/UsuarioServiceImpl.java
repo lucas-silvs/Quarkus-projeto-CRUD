@@ -114,6 +114,27 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     }
 
+    public void validarCredenciaisTecladoVirtualBinario(UsuarioCredencialTecladoVirtualRequest credencialTecladoVirtualRequest) {
+        validateFieldCredencialTecladoVirtualRequest(credencialTecladoVirtualRequest);
+        validarCpf(credencialTecladoVirtualRequest.getCpf());
+        UsuarioEntity usuarioEntity = usuarioGateway.buscarUsuario(credencialTecladoVirtualRequest.getCpf());
+        boolean senhavalida = TecladoVirtualComponent.isSenhaCorretaBinario(usuarioEntity.getSenha(), credencialTecladoVirtualRequest.getTecladoVirtual(), credencialTecladoVirtualRequest.getTeclasPresionadas());
+        if(!senhavalida){
+            throw new LayerException("Senha Incorreta", BUSINESS, Status.NOT_ACCEPTABLE, "UsuarioServiceImpl.validarCredenciais()");
+        }
+    }
+
+    public void validarCredenciaisTecladoVirtualParalelo(UsuarioCredencialTecladoVirtualRequest credencialTecladoVirtualRequest) {
+        validateFieldCredencialTecladoVirtualRequest(credencialTecladoVirtualRequest);
+        validarCpf(credencialTecladoVirtualRequest.getCpf());
+        UsuarioEntity usuarioEntity = usuarioGateway.buscarUsuario(credencialTecladoVirtualRequest.getCpf());
+        boolean senhavalida = TecladoVirtualComponent.isSenhaCorretaParallel(usuarioEntity.getSenha(), credencialTecladoVirtualRequest.getTecladoVirtual(), credencialTecladoVirtualRequest.getTeclasPresionadas());
+        if(!senhavalida){
+            throw new LayerException("Senha Incorreta", BUSINESS, Status.NOT_ACCEPTABLE, "UsuarioServiceImpl.validarCredenciais()");
+        }
+    }
+
+
     private void validateFieldCredencialTecladoVirtualRequest(UsuarioCredencialTecladoVirtualRequest credencialRequest) {
         Set<ConstraintViolation<UsuarioCredencialTecladoVirtualRequest>> violations = validator.validate(credencialRequest);
         if (!violations.isEmpty()) {
@@ -121,6 +142,8 @@ public class UsuarioServiceImpl implements UsuarioService {
             throw new LayerException(message, BUSINESS, Status.NOT_ACCEPTABLE, "UsuarioServiceImpl.validarCredenciaisTecladoVirtual()");
         }
     }
+
+
 
     private void validateFieldCredencialRequest(UsuarioCredencialRequest credencialRequest) {
         Set<ConstraintViolation<UsuarioCredencialRequest>> violations = validator.validate(credencialRequest);
