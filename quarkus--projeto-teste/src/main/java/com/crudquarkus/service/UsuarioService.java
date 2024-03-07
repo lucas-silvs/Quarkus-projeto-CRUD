@@ -18,4 +18,10 @@ public interface UsuarioService {
  void atualizadDadosUsuario(UsuarioContractRequest updateContractRequest);
 
  void validarCredenciaisTecladoVirtual(UsuarioCredencialTecladoVirtualRequest credencialTecladoVirtualRequest);
+
+ void validarCredenciaisTecladoVirtualBinario(UsuarioCredencialTecladoVirtualRequest credencialTecladoVirtualRequest);
+
+ void validarCredenciaisTecladoVirtualParalelo(UsuarioCredencialTecladoVirtualRequest credencialTecladoVirtualRequest);
+
+
 }

@@ -41,30 +41,6 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuarioGateway.cadastrarUsuario(entity);
     }
 
-    private void validateFieldUsuarioContractRequest(UsuarioContractRequest usuarioContractRequest) {
-        Set<ConstraintViolation<UsuarioContractRequest>> violations = validator.validate(usuarioContractRequest);
-        if(!violations.isEmpty()) {
-            String message = ((ConstraintViolation) violations.toArray()[0]).getMessageTemplate();
-            throw new LayerException(message, BUSINESS, Status.NOT_ACCEPTABLE, "UsuarioServiceImpl.validateFieldUsuarioContractRequest()");
-        }
-        CpfValidator.isCPF(usuarioContractRequest.getCpf());
-
-    }
-
-    private UsuarioEntity toUsuarioEntity(UsuarioContractRequest request) {
-        UsuarioEntity usuarioEntity = new UsuarioEntity();
-        usuarioEntity.setNome(request.getNome());
-        usuarioEntity.setCpf(request.getCpf());
-        usuarioEntity.setEmail(request.getEmail());
-        usuarioEntity.setTelefone(request.getTelefone());
-        usuarioEntity.setLogin(request.getLogin());
-        usuarioEntity.setSenha(PasswordComponents.criptografarSenha(request.getSenha()));
-        Date dataConvertida = DateConverter.StringToDate(request.getDataNascimento());
-        usuarioEntity.setDataNascimento(dataConvertida);
-
-        return usuarioEntity;
-    }
-
     @Override
     public UsuarioContractResponse buscarUsuario(String identificador) {
         validarCpf(identificador);
@@ -82,13 +58,6 @@ public class UsuarioServiceImpl implements UsuarioService {
             throw new LayerException("Senha Incorreta", BUSINESS, Status.NOT_ACCEPTABLE, "UsuarioServiceImpl.validarCredenciais()");
         }
     }
-
-    private void validarCpf(String cpf){
-        if(!CpfValidator.isCPF(cpf)){
-            throw new LayerException("Identificador Cpf Invalido", BUSINESS, Status.NOT_ACCEPTABLE, "UsuarioServiceImpl.validarCpf()");
-        }
-    }
-
 
     public void excluirUsuario(String identificador) {
         usuarioGateway.excluirUsuario(identificador);
@@ -114,11 +83,70 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     }
 
+    public void validarCredenciaisTecladoVirtualBinario(UsuarioCredencialTecladoVirtualRequest credencialTecladoVirtualRequest) {
+        validateFieldCredencialTecladoVirtualRequest(credencialTecladoVirtualRequest);
+        validarCpf(credencialTecladoVirtualRequest.getCpf());
+        UsuarioEntity usuarioEntity = usuarioGateway.buscarUsuario(credencialTecladoVirtualRequest.getCpf());
+        boolean senhavalida = TecladoVirtualComponent.isSenhaCorretaBinario(usuarioEntity.getSenha(), credencialTecladoVirtualRequest.getTecladoVirtual(), credencialTecladoVirtualRequest.getTeclasPresionadas());
+        if(!senhavalida){
+            throw new LayerException("Senha Incorreta", BUSINESS, Status.NOT_ACCEPTABLE, "UsuarioServiceImpl.validarCredenciais()");
+        }
+    }
+
+    public void validarCredenciaisTecladoVirtualParalelo(UsuarioCredencialTecladoVirtualRequest credencialTecladoVirtualRequest) {
+        validateFieldCredencialTecladoVirtualRequest(credencialTecladoVirtualRequest);
+        validarCpf(credencialTecladoVirtualRequest.getCpf());
+        UsuarioEntity usuarioEntity = usuarioGateway.buscarUsuario(credencialTecladoVirtualRequest.getCpf());
+        boolean senhavalida = false;
+
+        if ( credencialTecladoVirtualRequest.getTecladoVirtualList() != null && !credencialTecladoVirtualRequest.getTecladoVirtualList().isEmpty()){
+            senhavalida = TecladoVirtualComponent.isSenhaCorretaParallel(usuarioEntity.getSenha(), credencialTecladoVirtualRequest.getTecladoVirtualList(), credencialTecladoVirtualRequest.getTeclasPresionadas());
+        }
+        else {
+            senhavalida = TecladoVirtualComponent.isSenhaCorretaParallel(usuarioEntity.getSenha(), credencialTecladoVirtualRequest.getTecladoVirtual(), credencialTecladoVirtualRequest.getTeclasPresionadas());
+        }
+        if(!senhavalida){
+            throw new LayerException("Senha Incorreta", BUSINESS, Status.NOT_ACCEPTABLE, "UsuarioServiceImpl.validarCredenciais()");
+        }
+    }
+
+
     private void validateFieldCredencialTecladoVirtualRequest(UsuarioCredencialTecladoVirtualRequest credencialRequest) {
         Set<ConstraintViolation<UsuarioCredencialTecladoVirtualRequest>> violations = validator.validate(credencialRequest);
         if (!violations.isEmpty()) {
             String message = ((ConstraintViolation) violations.toArray()[0]).getMessageTemplate();
             throw new LayerException(message, BUSINESS, Status.NOT_ACCEPTABLE, "UsuarioServiceImpl.validarCredenciaisTecladoVirtual()");
+        }
+    }
+
+
+    private void validateFieldUsuarioContractRequest(UsuarioContractRequest usuarioContractRequest) {
+        Set<ConstraintViolation<UsuarioContractRequest>> violations = validator.validate(usuarioContractRequest);
+        if(!violations.isEmpty()) {
+            String message = ((ConstraintViolation) violations.toArray()[0]).getMessageTemplate();
+            throw new LayerException(message, BUSINESS, Status.NOT_ACCEPTABLE, "UsuarioServiceImpl.validateFieldUsuarioContractRequest()");
+        }
+        CpfValidator.isCPF(usuarioContractRequest.getCpf());
+
+    }
+
+    private UsuarioEntity toUsuarioEntity(UsuarioContractRequest request) {
+        UsuarioEntity usuarioEntity = new UsuarioEntity();
+        usuarioEntity.setNome(request.getNome());
+        usuarioEntity.setCpf(request.getCpf());
+        usuarioEntity.setEmail(request.getEmail());
+        usuarioEntity.setTelefone(request.getTelefone());
+        usuarioEntity.setLogin(request.getLogin());
+        usuarioEntity.setSenha(PasswordComponents.criptografarSenha(request.getSenha()));
+        Date dataConvertida = DateConverter.StringToDate(request.getDataNascimento());
+        usuarioEntity.setDataNascimento(dataConvertida);
+
+        return usuarioEntity;
+    }
+
+    private void validarCpf(String cpf){
+        if(!CpfValidator.isCPF(cpf)){
+            throw new LayerException("Identificador Cpf Invalido", BUSINESS, Status.NOT_ACCEPTABLE, "UsuarioServiceImpl.validarCpf()");
         }
     }
 
