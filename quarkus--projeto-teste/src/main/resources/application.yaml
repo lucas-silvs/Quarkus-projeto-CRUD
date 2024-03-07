@@ -4,6 +4,9 @@ quarkus:
     access-log:
       enabled: true
 
+  thread:
+    number: 4
+
 
 
   log:

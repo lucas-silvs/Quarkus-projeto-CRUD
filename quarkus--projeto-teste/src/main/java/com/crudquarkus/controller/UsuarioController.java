@@ -45,4 +45,9 @@ public interface UsuarioController {
     @POST
     RestResponse<Object> validarCredenciaisComTecladoVirtualParalelo(UsuarioCredencialTecladoVirtualRequest credencialTecladoVirtualRequest);
 
+
+    @Path("/validar-credencial-teclado-virtual/list/paralelo")
+    @POST
+    RestResponse<Object> validarCredenciaisComTecladoVirtualParaleloList(UsuarioCredencialTecladoVirtualRequest credencialTecladoVirtualRequest);
+
 }

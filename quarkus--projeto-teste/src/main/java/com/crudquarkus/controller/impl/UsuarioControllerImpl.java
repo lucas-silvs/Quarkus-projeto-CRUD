@@ -63,4 +63,10 @@ public class UsuarioControllerImpl implements UsuarioController {
         return RestResponse.noContent();
     }
 
+    @Override
+    public RestResponse<Object> validarCredenciaisComTecladoVirtualParaleloList(UsuarioCredencialTecladoVirtualRequest credencialTecladoVirtualRequest) {
+        service.validarCredenciaisTecladoVirtualParalelo(credencialTecladoVirtualRequest);
+        return RestResponse.noContent();
+    }
+
 }
