@@ -1,6 +1,6 @@
 package com.crudquarkus.models.request;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 public class UsuarioContractRequest {
     @NotBlank(message = "campo não pode ser em branco")

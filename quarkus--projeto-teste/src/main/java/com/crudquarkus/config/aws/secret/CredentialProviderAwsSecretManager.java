@@ -1,7 +1,9 @@
 package com.crudquarkus.config.aws.secret;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import io.quarkus.arc.Unremovable;
 import io.quarkus.arc.profile.IfBuildProfile;
 import io.quarkus.credentials.CredentialsProvider;
@@ -9,8 +11,8 @@ import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,7 +27,6 @@ a busca das credencias
 public class CredentialProviderAwsSecretManager implements CredentialsProvider {
 
     private  final SecretsManagerClient secretsManagerClient;
-
 
     private final SecretProperties secretProperties;
 
@@ -44,8 +45,7 @@ public class CredentialProviderAwsSecretManager implements CredentialsProvider {
         GetSecretValueResponse secretResponse = secretsManagerClient.getSecretValue(secretValueRequest);
 
         //converter o json retornado para um para um Map
-        Map<String, String> jsonSecretValue = new Gson().fromJson(secretResponse.secretString(), Map.class);
-
+        Map<String, String> jsonSecretValue = new Gson().fromJson(secretResponse.secretString(), new TypeToken<Map<String, String>>(){}.getType());
         //seta as propriedades de credenciais nas properties e ao retorna-lo, instancia o DataSource
         Map<String, String> properties = new HashMap<>();
         properties.put(USER_PROPERTY_NAME, jsonSecretValue.get("username"));

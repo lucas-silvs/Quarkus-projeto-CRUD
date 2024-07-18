@@ -13,12 +13,13 @@ import com.crudquarkus.service.UsuarioService;
 import com.crudquarkus.service.converter.DateConverter;
 import com.crudquarkus.service.validator.CpfValidator;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
-import javax.ws.rs.core.Response.Status;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validator;
+import jakarta.ws.rs.core.Response.Status;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @ApplicationScoped
@@ -43,9 +44,20 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public UsuarioContractResponse buscarUsuario(String identificador) {
+
+        if (identificador.contains("@")){
+            UsuarioEntity usuarioEntity = usuarioGateway.buscarUsuarioPorEmail(identificador);
+            return new UsuarioContractResponse(usuarioEntity);
+
+        }
         validarCpf(identificador);
         UsuarioEntity usuarioEntity = usuarioGateway.buscarUsuario(identificador);
         return new UsuarioContractResponse(usuarioEntity);
+    }
+
+    @Override
+    public List<UsuarioContractResponse> listaUsuario() {
+        return usuarioGateway.listarUsuarios().stream().map(UsuarioContractResponse::new).toList();
     }
 
     @Override

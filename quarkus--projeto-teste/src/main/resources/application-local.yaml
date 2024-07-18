@@ -2,8 +2,8 @@ quarkus:
 
   datasource:
     db-kind: mysql
-    username: wb-usuarios
-    password: quarkusdb
+    username: root
+    password: admin
     jdbc:
       url: "jdbc:mysql://127.0.0.1:3303/db_quarkus"
 

@@ -3,9 +3,9 @@ package com.crudquarkus.gateway.impl
 import com.crudquarkus.datasource.entity.UsuarioEntity
 import com.crudquarkus.datasource.repository.UsuarioRepository
 import com.crudquarkus.exception.LayerException
+import jakarta.ws.rs.NotFoundException
 import spock.lang.Specification
 
-import javax.ws.rs.NotFoundException
 
 class UsuarioGatewayImplSpec extends Specification {
 

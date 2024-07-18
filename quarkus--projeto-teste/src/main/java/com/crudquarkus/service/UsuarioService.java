@@ -5,11 +5,15 @@ import com.crudquarkus.models.request.UsuarioCredencialRequest;
 import com.crudquarkus.models.request.UsuarioCredencialTecladoVirtualRequest;
 import com.crudquarkus.models.response.UsuarioContractResponse;
 
+import java.util.List;
+
 public interface UsuarioService {
 
  void cadastrarUsuario(UsuarioContractRequest usuarioContractRequest);
 
  UsuarioContractResponse buscarUsuario(String identificador);
+
+ List<UsuarioContractResponse> listaUsuario();
 
  void validarCredenciais(UsuarioCredencialRequest credencialRequest);
 

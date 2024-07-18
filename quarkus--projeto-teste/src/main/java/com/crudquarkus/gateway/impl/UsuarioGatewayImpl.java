@@ -6,11 +6,15 @@ import com.crudquarkus.exception.LayerException;
 import com.crudquarkus.gateway.UsuarioGateway;
 import com.crudquarkus.models.request.UsuarioContractRequest;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.transaction.Transactional;
-import javax.ws.rs.NotFoundException;
-import javax.ws.rs.core.Response.Status;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
+import jakarta.ws.rs.NotFoundException;
+import jakarta.ws.rs.core.Response.Status;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.List;
 import java.util.Optional;
 
 @ApplicationScoped
@@ -19,6 +23,8 @@ public class UsuarioGatewayImpl implements UsuarioGateway {
 
     public static final String GATEWAY = "GATEWAY";
     UsuarioRepository usuarioRepository;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(UsuarioGatewayImpl.class);
 
     @Inject
     public UsuarioGatewayImpl(UsuarioRepository usuarioRepository) {
@@ -40,6 +46,8 @@ public class UsuarioGatewayImpl implements UsuarioGateway {
 
     public UsuarioEntity buscarUsuario(String identificador) {
         try {
+            LOGGER.info("Buscando usuario por CPF: {}", identificador);
+
             return Optional.ofNullable(usuarioRepository.buscarPeloCpfCnpj(identificador))
                     .orElseThrow(NotFoundException::new);
         } catch (NotFoundException e) {
@@ -59,6 +67,21 @@ public class UsuarioGatewayImpl implements UsuarioGateway {
         mapearAlteracoesUsuarioEntity(entity, usuarioContractRequest);
         usuarioRepository.persist(entity);
 
+    }
+
+    @Override
+    public UsuarioEntity buscarUsuarioPorEmail(String identificador) {
+        try {
+                LOGGER.info("Buscando usuario por email: {}", identificador);
+                return Optional.ofNullable(usuarioRepository.buscaPeloEmail(identificador))
+                    .orElseThrow(NotFoundException::new);
+        } catch (NotFoundException e) {
+            throw new LayerException("Usuario não encontrado", GATEWAY, Status.NOT_FOUND, "UsuarioGatewayImpl.buscarUsuario()");
+        }    }
+
+    @Override
+    public List<UsuarioEntity> listarUsuarios() {
+        return usuarioRepository.listAll();
     }
 
 

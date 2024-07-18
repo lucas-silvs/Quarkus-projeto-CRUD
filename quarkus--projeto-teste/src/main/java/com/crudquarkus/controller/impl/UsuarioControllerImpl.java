@@ -7,12 +7,15 @@ import com.crudquarkus.models.request.UsuarioCredencialTecladoVirtualRequest;
 import com.crudquarkus.models.response.ContractResponse;
 import com.crudquarkus.models.response.UsuarioContractResponse;
 import com.crudquarkus.service.UsuarioService;
+import jakarta.inject.Singleton;
 import org.jboss.resteasy.reactive.RestResponse;
 
-import javax.inject.Inject;
-import javax.ws.rs.core.Response;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.core.Response;
 
+import java.util.List;
 
+@Singleton
 public class UsuarioControllerImpl implements UsuarioController {
 
     private final UsuarioService service;
@@ -31,6 +34,12 @@ public class UsuarioControllerImpl implements UsuarioController {
     public RestResponse<UsuarioContractResponse> buscarUsuario( String identificador) {
         UsuarioContractResponse usuario = service.buscarUsuario(identificador);
         return RestResponse.ResponseBuilder.create(Response.Status.OK, usuario).build();
+    }
+
+    @Override
+    public RestResponse<List<UsuarioContractResponse>> listaUsuario() {
+        List<UsuarioContractResponse> listUsers = service.listaUsuario();
+        return RestResponse.ok(listUsers);
     }
 
     public RestResponse<Object> validarCredenciais(UsuarioCredencialRequest credencialRequest) {

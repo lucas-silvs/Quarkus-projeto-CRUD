@@ -6,9 +6,6 @@ quarkus:
 
   thread:
     number: 4
-
-
-
   log:
     level: INFO
     min-level: TRACE

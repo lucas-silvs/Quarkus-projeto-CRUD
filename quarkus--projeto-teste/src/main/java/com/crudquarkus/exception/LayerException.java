@@ -2,7 +2,7 @@ package com.crudquarkus.exception;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
 
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.Response.Status;
 
 
 @RegisterForReflection

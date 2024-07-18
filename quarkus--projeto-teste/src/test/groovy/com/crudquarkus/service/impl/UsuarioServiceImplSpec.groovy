@@ -6,7 +6,6 @@ import com.crudquarkus.gateway.impl.UsuarioGatewayImpl
 import com.crudquarkus.models.request.UsuarioContractRequest
 import spock.lang.Specification
 
-import javax.validation.Validation
 
 class UsuarioServiceImplSpec extends Specification {
 

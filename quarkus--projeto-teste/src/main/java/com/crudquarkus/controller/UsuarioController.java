@@ -7,8 +7,10 @@ import com.crudquarkus.models.response.ContractResponse;
 import com.crudquarkus.models.response.UsuarioContractResponse;
 import org.jboss.resteasy.reactive.RestResponse;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
+
+import java.util.List;
 
 @Path("/usuario")
 public interface UsuarioController {
@@ -17,8 +19,13 @@ public interface UsuarioController {
     @Consumes(MediaType.APPLICATION_JSON)
     RestResponse<ContractResponse> cadastrarUsuario(UsuarioContractRequest userDataRequest);
     @GET
+    @Path("/{identificador}")
     @Produces(MediaType.APPLICATION_JSON)
-    RestResponse<UsuarioContractResponse> buscarUsuario(@QueryParam("identificador") String identificador);
+    RestResponse<UsuarioContractResponse> buscarUsuario(@PathParam ("identificador") String identificador);
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    RestResponse<List<UsuarioContractResponse>> listaUsuario();
 
     @Path("/validar-credencial")
     @POST

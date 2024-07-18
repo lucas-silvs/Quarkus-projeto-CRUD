@@ -9,7 +9,6 @@ import com.crudquarkus.service.impl.UsuarioServiceImpl
 import io.quarkus.test.junit.QuarkusTest
 import spock.lang.Specification
 
-import javax.ws.rs.core.Response
 
 @QuarkusTest
 class UsuarioControllerImplSpec extends Specification {
