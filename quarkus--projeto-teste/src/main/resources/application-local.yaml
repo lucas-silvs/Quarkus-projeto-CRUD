@@ -5,8 +5,11 @@ quarkus:
     username: root
     password: admin
     jdbc:
-      url: "jdbc:mysql://127.0.0.1:3303/db_quarkus"
+      url: "jdbc:mysql://localhost:3303/db_quarkus?useSSL=false"
 
   hibernate-orm:
     database:
       generation: update
+
+https:
+  protocols: "TLSv1 TLSv1.1 TLSv1.2 TLSv1.3"
